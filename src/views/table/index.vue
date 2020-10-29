@@ -115,7 +115,11 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column align="center" type="selection"></el-table-column>
-      <el-table-column align="center" label="序号" type="index"></el-table-column>
+      <el-table-column
+        align="center"
+        label="序号"
+        type="index"
+      ></el-table-column>
       <el-table-column align="center" prop="num" label="账号"></el-table-column>
       <el-table-column
         align="center"
@@ -242,6 +246,18 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage4"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -321,6 +337,10 @@ export default {
       ],
       dialogFormVisible: false,
       informationEditVisible: false,
+      currentPage1: 5,
+      currentPage2: 5,
+      currentPage3: 5,
+      currentPage4: 4,
     };
   },
 
@@ -349,6 +369,12 @@ export default {
       } else {
         return true;
       }
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
     },
     removeData() {
       // let arr = []
@@ -416,5 +442,9 @@ export default {
       }
     }
   }
+}
+.block{
+  background: #d7d7d7;
+  margin:0 auto;
 }
 </style>
