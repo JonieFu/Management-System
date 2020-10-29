@@ -1,35 +1,40 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" :inline="true">
-      <el-form-item label="员工姓名" size="mini">
+      <el-form-item label="员工姓名" size="small" style="margin-left: 20px">
         <el-input v-model="form.name" placeholder="请输入员工姓名"></el-input>
       </el-form-item>
-      <el-form-item label="员工账号" size="mini">
+      <el-form-item label="员工账号" size="small">
         <el-input v-model="form.num" placeholder="请输入员工账号"></el-input>
       </el-form-item>
-      <el-form-item label="员工职位" size="mini">
+      <el-form-item label="员工职位" size="small">
         <el-input v-model="form.title" placeholder="请输入员工职位"></el-input>
       </el-form-item>
-      <el-form-item label="所属部门" size="mini">
+      <el-form-item label="所属部门" size="small">
         <el-input
           v-model="form.department"
           placeholder="请输入所属部门"
         ></el-input>
       </el-form-item>
-      <el-form-item size="mini">
+      <el-form-item size="small">
         <el-button type="primary" @click="onSubmit" icon="el-icon-search"
           >搜索</el-button
         >
       </el-form-item>
-      <el-form-item class="add" label="" size="mini">
+      <el-form-item class="add" label="" size="small">
         <el-button
           type="primary"
           @click="dialogFormVisible = true"
           icon="el-icon-circle-plus"
           >添加</el-button
         >
-        <el-dialog title="添加新员工" :visible.sync="dialogFormVisible" center>
-          <el-form :model="form">
+        <el-dialog
+          title="添加新员工"
+          :visible.sync="dialogFormVisible"
+          center
+          width="800px"
+        >
+          <el-form :model="form" :inline="true" style="text-align: center">
             <el-form-item label="员工姓名">
               <el-input
                 v-model="form.name"
@@ -58,11 +63,11 @@
                 placeholder="请输入所在部门"
               ></el-input>
             </el-form-item>
-            <el-form-item label="直属上级">
+            <el-form-item label="员工状态">
               <el-input
-                v-model="form.superior"
+                v-model="form.status"
                 autocomplete="off"
-                placeholder="请输入其直属上级"
+                placeholder="请输入员工状态"
               ></el-input>
             </el-form-item>
             <el-form-item label="手机号码">
@@ -96,12 +101,20 @@
         </el-dialog>
       </el-form-item>
     </el-form>
-    <el-table :data="tableData" height="250" border>
-      <el-table-column
-        label="序号"
-        align="center"
-        type="index"
-      ></el-table-column>
+    <el-button
+      @click="delet()"
+      type="danger"
+      style="margin-top: 10px"
+      size="mini"
+    >
+      删除选中
+    </el-button>
+    <el-table
+      :data="tableData"
+      border
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column align="center" type="selection"></el-table-column>
       <el-table-column align="center" prop="num" label="账号">
       </el-table-column>
       <el-table-column align="center" prop="name" label="姓名">
@@ -110,7 +123,15 @@
       </el-table-column>
       <el-table-column align="center" prop="department" label="部门">
       </el-table-column>
-      <el-table-column align="center" prop="superior" label="直属领导">
+      <el-table-column align="center" prop="status" label="员工状态">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            :type="toggleType(scope.row.status)"
+            :disabled="toggleDisabled(scope.row.status)"
+            >{{ scope.row.status }}</el-button
+          >
+        </template>
       </el-table-column>
       <el-table-column align="center" prop="time" label="日期">
       </el-table-column>
@@ -120,68 +141,77 @@
       </el-table-column>
       <el-table-column align="center" prop="address" label="地址">
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column class="operating" label="操作" align="center">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          <el-button
+            type="primary"
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)"
             >编辑</el-button
           >
           <el-dialog
             title="编辑员工信息"
             :visible.sync="informationEditVisible"
             center
-            ><el-form :model="form">
+            width="800px"
+          >
+            <el-form
+              :model="editData"
+              :inline="true"
+              style="border: none; box-shadow: none; text-align: center"
+            >
               <el-form-item label="员工姓名">
                 <el-input
-                  v-model="scope.row.name"
+                  v-model="editData.name"
                   autocomplete="off"
                   placeholder="请输入员工姓名"
                 ></el-input>
               </el-form-item>
               <el-form-item label="员工职称">
                 <el-input
-                  v-model="scope.row.title"
+                  v-model="editData.title"
                   autocomplete="off"
                   placeholder="请输入员工职称"
                 ></el-input>
               </el-form-item>
               <el-form-item label="员工账号">
                 <el-input
-                  v-model="scope.row.num"
+                  v-model="editData.num"
                   autocomplete="off"
                   placeholder="请输入员工账号"
                 ></el-input>
               </el-form-item>
               <el-form-item label="所在部门">
                 <el-input
-                  v-model="scope.row.department"
+                  v-model="editData.department"
                   autocomplete="off"
                   placeholder="请输入所在部门"
                 ></el-input>
               </el-form-item>
-              <el-form-item label="直属上级">
+              <el-form-item label="员工状态">
                 <el-input
-                  v-model="scope.row.superior"
+                  v-model="editData.status"
                   autocomplete="off"
-                  placeholder="请输入其直属上级"
+                  placeholder="请输入员工状态"
                 ></el-input>
               </el-form-item>
               <el-form-item label="手机号码">
                 <el-input
-                  v-model="scope.row.tel"
+                  v-model="editData.tel"
                   autocomplete="off"
                   placeholder="请输入手机号"
                 ></el-input>
               </el-form-item>
               <el-form-item label="工作邮箱">
                 <el-input
-                  v-model="scope.row.email"
+                  v-model="editData.email"
                   autocomplete="off"
                   placeholder="请输入工作邮箱"
                 ></el-input>
               </el-form-item>
               <el-form-item label="家庭地址">
                 <el-input
-                  v-model="scope.row.address"
+                  v-model="editData.address"
                   autocomplete="off"
                   placeholder="请输入家庭住址"
                   width="100px"
@@ -189,20 +219,17 @@
               </el-form-item>
             </el-form>
             <div class="dialog-footer">
-              <el-button @click="informationEditVisible = false"
+              <el-button @click="informationEditVisible = false" size="small"
                 >取消</el-button
               >
-              <el-button type="primary" @click="informationEditVisible = false"
+              <el-button
+                type="primary"
+                @click="informationEditVisible = false"
+                size="small"
                 >保存</el-button
               >
             </div>
           </el-dialog>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
         </template>
       </el-table-column>
     </el-table>
@@ -214,6 +241,8 @@ export default {
   data() {
     return {
       formLabelWidth: "70px",
+      tableDataAmount: [],
+      editData: [],
       form: {
         name: "",
         num: "",
@@ -222,17 +251,61 @@ export default {
         tel: "",
         address: "",
         email: "",
-        superior: "",
+        status: "",
       },
       tableData: [
         {
           name: "王小虎",
-          num: "12",
+          num: "2",
           title: "职工",
           department: "项目管理",
           tel: "17866234",
           email: "wangxiaohu@gmail.com",
-          superior: "王大虎",
+          status: "离职",
+          address: "上海市普陀区金沙江路 1518 弄",
+          time: "2020-10-23",
+        },
+        {
+          name: "王小虎",
+          num: "3",
+          title: "职工",
+          department: "项目管理",
+          tel: "17866234",
+          email: "wangxiaohu@gmail.com",
+          status: "在职",
+          address: "上海市普陀区金沙江路 1518 弄",
+          time: "2020-10-23",
+        },
+        {
+          name: "王小虎",
+          num: "4",
+          title: "职工",
+          department: "项目管理",
+          tel: "17866234",
+          email: "wangxiaohu@gmail.com",
+          status: "离职",
+          address: "上海市普陀区金沙江路 1518 弄",
+          time: "2020-10-23",
+        },
+        {
+          name: "王小虎",
+          num: "5",
+          title: "职工",
+          department: "项目管理",
+          tel: "17866234",
+          email: "wangxiaohu@gmail.com",
+          status: "在职",
+          address: "上海市普陀区金沙江路 1518 弄",
+          time: "2020-10-23",
+        },
+        {
+          name: "王小虎",
+          num: "6",
+          title: "职工",
+          department: "项目管理",
+          tel: "17866234",
+          email: "wangxiaohu@gmail.com",
+          status: "离职",
           address: "上海市普陀区金沙江路 1518 弄",
           time: "2020-10-23",
         },
@@ -241,64 +314,89 @@ export default {
       informationEditVisible: false,
     };
   },
-  mounted() {
-    console.log(window.innerWidth);
-  },
+
   methods: {
     onSubmit() {
       window.alert("搜索");
     },
     handleEdit(index, row) {
       this.informationEditVisible = true;
-      console.log(row.name);
-      console.log(this.informationEditVisible);
+      console.log(this.tableData[index]);
+      this.editData = row;
+      console.log(this.editData);
     },
-    handleDelete(index, row) {
-      console.log(this.informationEditVisible);
-      console.log(index, row);
+
+    handleSelectionChange(data) {
+      this.tableDataAmount = data;
+    },
+    toggleType(status) {
+      if (status === "在职") {
+        return "primary";
+      } else {
+        return "info";
+      }
+    },
+    toggleDisabled(status) {
+      if (status === "在职") {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    delet() {
+      let that = this;
+      let val = that.tableDataAmount;
+      val.forEach(function (item, index) {
+        console.log(item, index);
+        that.tableData.forEach(function (itemI, indexI) {
+          if (item.num === itemI.num) {
+            console.log(indexI);
+            that.tableData.splice(indexI, 1);
+          }
+        });
+      });
     },
   },
 };
 </script>
 <style lang="scss" scoped>
-/* .app-container {
-  border: 1px solid red;
-  width: 95%;
-  margin: auto;
+.el-form {
+  border: 1px solid #d7d7d7;
+  box-shadow: 0px 1px 9px 1px rgba(215, 215, 215, 1);
   .el-form-item {
-    margin: 0 7% 0 0;
-
-    .el-button {
-      background-color: #409eff;
-      color: white;
-      width: 150%;
-    }
+    margin-top: 20px;
+    margin-right: 50px;
   }
   .add {
-    .el-dialog {
+    .el-form {
+      border: none;
+      box-shadow: none;
       .el-form-item {
-        margin-left: 60px;
-        margin-bottom: 5px;
+        margin: 0 20px 20px 0;
       }
     }
     .dialog-footer {
-      margin-top: 20px;
-      margin-left: 500px;
-      width: 200px;
+      text-align: center;
+    }
+    .el-button {
+      margin: 0 15px 0 15px;
+    }
+  }
+}
+.el-table {
+  &:last-child {
+    .el-dialog {
+      text-align: center;
+      .el-form-item {
+        margin: 0 20px 20px 0;
+      }
+      .dialog-footer {
+        text-align: center;
+      }
       .el-button {
-        width: 70px;
-        &:first-child {
-          background: #eeeeee;
-        }
+        margin: 0 15px 0 15px;
       }
     }
   }
 }
-@media only screen and (max-width: 1600px) {
-  .app-container {
-    .el-form-item {
-      margin: 0 3% 0 0;
-    }
-  }
-} */
 </style>

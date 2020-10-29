@@ -6,6 +6,11 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App",
+};
 </script>
+<style lang="scss" >
+.el-table th.gutter {
+  display: table-cell !important;
+}
+</style>
