@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" :inline="true">
+    <el-form :model="form" :inline="true">
       <el-form-item label="员工姓名" size="small" style="margin-left: 20px">
         <el-input v-model="form.name" placeholder="请输入员工姓名"></el-input>
       </el-form-item>
@@ -21,7 +21,7 @@
           >搜索</el-button
         >
       </el-form-item>
-      <el-form-item class="add" label="" size="small">
+      <el-form-item class="add" size="small">
         <el-button
           type="primary"
           @click="dialogFormVisible = true"
@@ -34,7 +34,7 @@
           center
           width="800px"
         >
-          <el-form :model="form" :inline="true" style="text-align: center">
+          <el-form :model="form" style="text-align: center">
             <el-form-item label="员工姓名">
               <el-input
                 v-model="form.name"
@@ -102,7 +102,7 @@
       </el-form-item>
     </el-form>
     <el-button
-      @click="delet()"
+      @click="removeData"
       type="danger"
       style="margin-top: 10px"
       size="mini"
@@ -115,14 +115,23 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column align="center" type="selection"></el-table-column>
-      <el-table-column align="center" prop="num" label="账号">
-      </el-table-column>
-      <el-table-column align="center" prop="name" label="姓名">
-      </el-table-column>
-      <el-table-column align="center" prop="title" label="职称">
-      </el-table-column>
-      <el-table-column align="center" prop="department" label="部门">
-      </el-table-column>
+      <el-table-column align="center" label="序号" type="index"></el-table-column>
+      <el-table-column align="center" prop="num" label="账号"></el-table-column>
+      <el-table-column
+        align="center"
+        prop="name"
+        label="姓名"
+      ></el-table-column>
+      <el-table-column
+        align="center"
+        prop="title"
+        label="职称"
+      ></el-table-column>
+      <el-table-column
+        align="center"
+        prop="department"
+        label="部门"
+      ></el-table-column>
       <el-table-column align="center" prop="status" label="员工状态">
         <template slot-scope="scope">
           <el-button
@@ -321,11 +330,9 @@ export default {
     },
     handleEdit(index, row) {
       this.informationEditVisible = true;
-      console.log(this.tableData[index]);
-      this.editData = row;
-      console.log(this.editData);
-    },
 
+      this.editData = row;
+    },
     handleSelectionChange(data) {
       this.tableDataAmount = data;
     },
@@ -343,19 +350,30 @@ export default {
         return true;
       }
     },
-    delet() {
-      let that = this;
-      let val = that.tableDataAmount;
-      val.forEach(function (item, index) {
-        console.log(item, index);
-        that.tableData.forEach(function (itemI, indexI) {
-          if (item.num === itemI.num) {
-            console.log(indexI);
-            that.tableData.splice(indexI, 1);
-          }
-        });
+    removeData() {
+      // let arr = []
+      // for (let i = 0; i < this.tableData.length; i++) {
+      //   // console.log(this.tableData[i]);
+      //   this.tableDataAmount.indexOf(this.tableData[i]) === -1 && arr.push(this.tableData[i])
+      // }
+      // console.log(arr);
+      // this.tableData = arr
+
+      this.tableData = this.tableData.filter((item) => {
+        return this.tableDataAmount.indexOf(item) === -1;
       });
     },
+    // delet() {
+    //   let that = this;
+    //   let val = that.tableDataAmount;
+    //   val.forEach(function (item, index) {
+    //     that.tableData.forEach(function (itemI, indexI) {
+    //       if (item.num === itemI.num) {
+    //         that.tableData.splice(indexI, 1);
+    //       }
+    //     });
+    //   });
+    // },
   },
 };
 </script>
