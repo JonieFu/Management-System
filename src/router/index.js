@@ -41,19 +41,19 @@ export const constantRoutes = [
       {
         path: "employee",
         name: "Employee",
-        component: () => import("@/views/table/index"),
+        component: () => import("@/views/employee/index"),
         meta: { title: "员工管理", icon: "el-icon-s-check" }
       },
       {
         path: "company",
         name: "Company",
-        component: () => import("@/views/table/index"),
+        component: () => import("@/views/company/index"),
         meta: { title: "公司管理", icon: "el-icon-s-home" }
       },
       {
         path:"department",
         name:"Department",
-        component:()=>import("@/views/table/index"),
+        component:()=>import("@/views/department/index"),
         meta: { title: "部门管理", icon: "tree" }
       }
     ]
