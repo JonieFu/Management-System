@@ -101,8 +101,8 @@
           <el-col :span="12">
             <el-form-item label="员工状态">
               <el-select v-model="form.status" placeholder="请选择员工状态 ">
-                <el-option label="0" value="1"></el-option>
-                <el-option label="1" value="2"></el-option>
+                <el-option label="离职" value="0"></el-option>
+                <el-option label="在职" value="1"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -215,6 +215,7 @@
               title="编辑员工信息"
               :visible.sync="informationEditVisible"
               center
+              width="500px"
             >
               <el-form :model="editData" label-width="80px">
                 <el-row>
@@ -229,11 +230,14 @@
                   </el-col>
                   <el-col :span="12"
                     ><el-form-item label="员工岗位">
-                      <el-input
+                      <el-select
                         v-model="editData.title"
-                        autocomplete="off"
-                        placeholder="请输入员工岗位"
-                      ></el-input> </el-form-item
+                        placeholder="请选择岗位"
+                      >
+                        <el-option label="前端工程师" value="1"></el-option>
+                        <el-option label="软件工程师" value="2"></el-option>
+                        <el-option label="架构师" value="3"></el-option>
+                      </el-select> </el-form-item
                   ></el-col>
                 </el-row>
                 <el-row>
@@ -246,19 +250,25 @@
                       ></el-input> </el-form-item
                   ></el-col>
                   <el-col :span="12">
-                    <el-form-item label="所在部门">
-                      <el-input
+                    <el-form-item label="所属部门">
+                      <el-select
                         v-model="editData.department"
-                        autocomplete="off"
-                        placeholder="请输入所在部门"
-                      ></el-input>
+                        placeholder="请选择所属部门 "
+                      >
+                        <el-option label="项目管理部" value="1"></el-option>
+                        <el-option label="人力资源部" value="2"></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row
                   ><el-col :span="12">
                     <el-form-item label="员工状态">
-                      <el-select v-model="editData.status" placeholder="" style="width:100%"> 
+                      <el-select
+                        v-model="editData.status"
+                        placeholder=""
+                        style="width: 100%"
+                      >
                         <el-option
                           :label="statusText[0]"
                           :value="statusList[0]"
@@ -290,28 +300,33 @@
                       ></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12"
-                    ><el-form-item label="家庭住址">
+                </el-row>
+                <el-row>
+                  <el-col :span="16">
+                    <el-form-item label="家庭住址">
                       <el-input
                         v-model="editData.address"
                         autocomplete="off"
                         placeholder="请输入家庭住址"
-                        width="100px"
-                      ></el-input> </el-form-item
-                  ></el-col>
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
               </el-form>
-              <div class="table-dialog-footer">
-                <el-button @click="informationEditVisible = false" size="small"
-                  >取消</el-button
-                >
-                <el-button
-                  type="primary"
-                  @click="informationEditVisible = false"
-                  size="small"
-                  >保存</el-button
-                >
-              </div>
+              <el-row>
+                <el-col :span="2" :offset="16">
+                  <el-button
+                    @click="informationEditVisible = false"
+                    size="small"
+                    >取消</el-button
+                  >
+                </el-col>
+                <el-col :span="2" :offset="3">
+                  <el-button type="primary" size="small" @click="confirmEdit"
+                    >确定</el-button
+                  >
+                </el-col>
+              </el-row>
             </el-dialog>
             <el-button
               type="danger"
@@ -322,31 +337,27 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <div class="block">
-        <el-button
-          @click="removeData"
-          type="danger"
-          style="margin-top: 10px"
-          size="mini"
-        >
-          删除选中
-        </el-button>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[1, 2, 3, 4]"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="totalNum()"
-        >
-        </el-pagination>
-      </div>
+    </div>
+    <div class="footer">
+      <el-button @click="removeData" type="danger" size="small"
+        >删除选中</el-button
+      >
+      <el-pagination
+        layout="total, prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-size="5"
+        :current-page="currentPage"
+        :total="50"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
+import tableJsonData from "./employee.json";
+
 export default {
   data() {
     return {
@@ -366,114 +377,25 @@ export default {
         email: "",
         status: null,
       },
-      tableData: [
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 0,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 0,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 0,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 0,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 0,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "3",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 1,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "4",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 0,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "5",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 1,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "6",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: 0,
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-      ],
+      tableData: [],
       dialogFormVisible: false,
       informationEditVisible: false,
       currentPage: 1,
     };
   },
-  mounted() {},
+  mounted() {
+    this.tableData = tableJsonData.slice(0, 5);
+  },
   methods: {
+    confirmEdit(){
+      if(this.editData.status === this.statusText[0]){
+        this.editData.status = this.statusList[0]
+      }else if(this.editData.status === this.statusText[1]){
+        this.editData.status = this.statusList[1]
+      }
+      this.tableData[this.editData.index] = this.editData
+      this.informationEditVisible = false
+    },
     formatStatus(value) {
       return this.statusText[value];
     },
@@ -482,8 +404,11 @@ export default {
     },
     handleEdit(index, row) {
       this.informationEditVisible = true;
-      this.editData = row;
+      console.log(row);
+      this.editData = { ...row };
+      // this.editData = row
       console.log(this.editData);
+      this.editData["index"] = index;
       this.editData.status ? this.statusText[1] : this.statusText[0];
     },
     removeRow(index, row) {
@@ -550,5 +475,9 @@ export default {
     border-radius: 4px;
     background: #909399;
   }
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

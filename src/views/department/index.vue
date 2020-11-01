@@ -1,47 +1,62 @@
 <template>
   <div class="app-container">
-    <el-form :model="form" :inline="true">
-      <el-form-item label="员工姓名" size="small" style="margin-left: 20px">
+    <el-form class="topForm" :model="form" :inline="true" size="small">
+      <el-form-item label="员工姓名">
         <el-input v-model="form.name" placeholder="请输入员工姓名"></el-input>
       </el-form-item>
-      <el-form-item label="员工账号" size="small">
+      <el-form-item label="员工账号">
         <el-input v-model="form.num" placeholder="请输入员工账号"></el-input>
       </el-form-item>
-      <el-form-item label="员工职位" size="small">
-        
-          <el-select v-model="form.title" placeholder="请选择职位" >
-            <el-option label="组长" value="1"></el-option>
-            <el-option label="部长" value="2"></el-option>
-            <el-option label="总经理" value="3"></el-option>
-          </el-select>
-        
+      <el-form-item label="员工岗位">
+        <el-select v-model="form.title" placeholder="请选择岗位">
+          <el-option label="前端工程师" value="1"></el-option>
+          <el-option label="软件工程师" value="2"></el-option>
+          <el-option label="架构师" value="3"></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="所属部门" size="small">
-       <el-select v-model="form.department" placeholder="请选择所属部门 " >
-            <el-option label="采购部" value="1"></el-option>
-            <el-option label="技术部" value="2"></el-option>
-            <el-option label="财务部" value="3"></el-option>
-          </el-select>
+      <el-form-item label="所属部门">
+        <el-select v-model="form.department" placeholder="请选择所属部门 ">
+          <el-option label="项目管理部" value="1"></el-option>
+          <el-option label="人力资源部" value="2"></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item size="small">
-        <el-button type="primary" @click="onSubmit" icon="el-icon-search"
-          >搜索</el-button
-        >
-      </el-form-item>
-      <el-form-item class="add" size="small">
+    </el-form>
+    <el-row>
+      <el-col :span="4" :md="2">
         <el-button
           type="primary"
+          size="small"
+          @click="onSubmit"
+          icon="el-icon-search"
+          >搜索</el-button
+        >
+      </el-col>
+      <el-col :span="4" :md="2">
+        <el-button
+          type="primary"
+          size="small"
           @click="dialogFormVisible = true"
           icon="el-icon-circle-plus"
           >添加</el-button
         >
-        <el-dialog
-          title="添加新员工"
-          :visible.sync="dialogFormVisible"
-          center
-          width="800px"
-        >
-          <el-form :model="form" style="text-align: center">
+      </el-col>
+      <el-col :span="4" :md="2">
+        <el-upload action="D:/" style="display: inline-block">
+          <el-button type="primary" size="small" icon="el-icon-upload2"
+            >上传文件</el-button
+          >
+        </el-upload>
+      </el-col>
+    </el-row>
+    <el-dialog
+      title="添加新员工"
+      :visible.sync="dialogFormVisible"
+      center
+      width="500px"
+    >
+      <el-form :model="form" label-width="80px" size="small">
+        <el-row>
+          <el-col :span="12">
             <el-form-item label="员工姓名">
               <el-input
                 v-model="form.name"
@@ -49,13 +64,19 @@
                 placeholder="请输入员工姓名"
               ></el-input>
             </el-form-item>
-            <el-form-item label="员工职称">
-              <el-input
-                v-model="form.title"
-                autocomplete="off"
-                placeholder="请输入员工职称"
-              ></el-input>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="员工岗位">
+              <el-select v-model="form.title" placeholder="请选择岗位">
+                <el-option label="前端工程师" value="1"></el-option>
+                <el-option label="软件工程师" value="2"></el-option>
+                <el-option label="架构师" value="3"></el-option>
+              </el-select>
             </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
             <el-form-item label="员工账号">
               <el-input
                 v-model="form.num"
@@ -63,20 +84,29 @@
                 placeholder="请输入员工账号"
               ></el-input>
             </el-form-item>
-            <el-form-item label="所在部门">
-              <el-input
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="所属部门">
+              <el-select
                 v-model="form.department"
-                autocomplete="off"
-                placeholder="请输入所在部门"
-              ></el-input>
+                placeholder="请选择所属部门 "
+              >
+                <el-option label="项目管理部" value="1"></el-option>
+                <el-option label="人力资源部" value="2"></el-option>
+              </el-select>
             </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
             <el-form-item label="员工状态">
-              <el-input
-                v-model="form.status"
-                autocomplete="off"
-                placeholder="请输入员工状态"
-              ></el-input>
+              <el-select v-model="form.status" placeholder="请选择员工状态 ">
+                <el-option label="离职" value="0"></el-option>
+                <el-option label="在职" value="1"></el-option>
+              </el-select>
             </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item label="手机号码">
               <el-input
                 v-model="form.tel"
@@ -84,6 +114,10 @@
                 placeholder="请输入手机号"
               ></el-input>
             </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
             <el-form-item label="工作邮箱">
               <el-input
                 v-model="form.email"
@@ -91,34 +125,40 @@
                 placeholder="请输入工作邮箱"
               ></el-input>
             </el-form-item>
-            <el-form-item label="家庭地址">
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16">
+            <el-form-item label="家庭住址">
               <el-input
                 v-model="form.address"
                 autocomplete="off"
                 placeholder="请输入家庭住址"
               ></el-input>
             </el-form-item>
-          </el-form>
-          <div class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false"
-              >确 定</el-button
-            >
-          </div>
-        </el-dialog>
-      </el-form-item>
-      <el-form-item size="small">
-
-        <el-upload action="D:/">
-          <el-button size="small" type="primary" icon="">上传文件</el-button>
-        </el-upload>
-      </el-form-item>
-    </el-form>
+          </el-col>
+        </el-row>
+      </el-form>
+      <el-row>
+        <el-col :span="2" :offset="16">
+          <el-button @click="dialogFormVisible = false" size="small"
+            >取 消</el-button
+          >
+        </el-col>
+        <el-col :span="2" :offset="3">
+          <el-button
+            type="primary"
+            size="small"
+            @click="dialogFormVisible = false"
+            >确 定</el-button
+          >
+        </el-col>
+      </el-row>
+    </el-dialog>
 
     <div class="table">
       <el-table
         :data="tableData"
-        border
         @selection-change="handleSelectionChange"
         :header-cell-style="{ background: '#eef1f6', color: '#606266' }"
       >
@@ -126,7 +166,6 @@
         <el-table-column
           align="center"
           label="序号"
-          width="50px"
           type="index"
         ></el-table-column>
         <el-table-column
@@ -142,27 +181,27 @@
         <el-table-column
           align="center"
           prop="title"
-          label="职称"
+          label="岗位"
         ></el-table-column>
         <el-table-column
           align="center"
           prop="department"
           label="部门"
         ></el-table-column>
-        <el-table-column align="center" prop="status" label="员工状态">
-          <template slot-scope="scope">
-            <el-button size="mini" :type="toggleType(scope.row.status)">{{
-              scope.row.status
-            }}</el-button>
+        <el-table-column align="center" prop="status" label="状态">
+          <template slot-scope="{ row }">
+            <div :class="row.status ? 'statusOn' : 'statusOff'">
+              {{ formatStatus(row.status) }}
+            </div>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="time" label="日期">
+        <el-table-column align="center" prop="time" label="入职时间">
         </el-table-column>
         <el-table-column align="center" prop="tel" label="电话">
         </el-table-column>
         <el-table-column align="center" prop="email" label="邮箱">
         </el-table-column>
-        <el-table-column align="center" prop="address" label="地址">
+        <el-table-column align="center" prop="address" label="住址">
         </el-table-column>
         <el-table-column class="operating" label="操作" align="center">
           <template slot-scope="scope">
@@ -176,12 +215,9 @@
               title="编辑员工信息"
               :visible.sync="informationEditVisible"
               center
+              width="500px"
             >
-              <el-form
-                :model="editData"
-                style="border: none; box-shadow: none"
-                label-width="80px"
-              >
+              <el-form :model="editData" label-width="80px">
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="员工姓名">
@@ -193,12 +229,15 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="12"
-                    ><el-form-item label="员工职称">
-                      <el-input
+                    ><el-form-item label="员工岗位">
+                      <el-select
                         v-model="editData.title"
-                        autocomplete="off"
-                        placeholder="请输入员工职称"
-                      ></el-input> </el-form-item
+                        placeholder="请选择岗位"
+                      >
+                        <el-option label="前端工程师" value="1"></el-option>
+                        <el-option label="软件工程师" value="2"></el-option>
+                        <el-option label="架构师" value="3"></el-option>
+                      </el-select> </el-form-item
                   ></el-col>
                 </el-row>
                 <el-row>
@@ -211,23 +250,34 @@
                       ></el-input> </el-form-item
                   ></el-col>
                   <el-col :span="12">
-                    <el-form-item label="所在部门">
-                      <el-input
+                    <el-form-item label="所属部门">
+                      <el-select
                         v-model="editData.department"
-                        autocomplete="off"
-                        placeholder="请输入所在部门"
-                      ></el-input>
+                        placeholder="请选择所属部门 "
+                      >
+                        <el-option label="项目管理部" value="1"></el-option>
+                        <el-option label="人力资源部" value="2"></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row
                   ><el-col :span="12">
                     <el-form-item label="员工状态">
-                      <el-input
+                      <el-select
                         v-model="editData.status"
-                        autocomplete="off"
-                        placeholder="请输入员工状态"
-                      ></el-input>
+                        placeholder=""
+                        style="width: 100%"
+                      >
+                        <el-option
+                          :label="statusText[0]"
+                          :value="statusList[0]"
+                        ></el-option>
+                        <el-option
+                          :label="statusText[1]"
+                          :value="statusList[1]"
+                        ></el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
@@ -250,28 +300,33 @@
                       ></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12"
-                    ><el-form-item label="家庭地址">
+                </el-row>
+                <el-row>
+                  <el-col :span="16">
+                    <el-form-item label="家庭住址">
                       <el-input
                         v-model="editData.address"
                         autocomplete="off"
                         placeholder="请输入家庭住址"
-                        width="100px"
-                      ></el-input> </el-form-item
-                  ></el-col>
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
               </el-form>
-              <div class="table-dialog-footer">
-                <el-button @click="informationEditVisible = false" size="small"
-                  >取消</el-button
-                >
-                <el-button
-                  type="primary"
-                  @click="informationEditVisible = false"
-                  size="small"
-                  >保存</el-button
-                >
-              </div>
+              <el-row>
+                <el-col :span="2" :offset="16">
+                  <el-button
+                    @click="informationEditVisible = false"
+                    size="small"
+                    >取消</el-button
+                  >
+                </el-col>
+                <el-col :span="2" :offset="3">
+                  <el-button type="primary" size="small" @click="confirmEdit"
+                    >确定</el-button
+                  >
+                </el-col>
+              </el-row>
             </el-dialog>
             <el-button
               type="danger"
@@ -282,38 +337,36 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <div class="block">
-        <el-button
-          @click="removeData"
-          type="danger"
-          style="margin-top: 10px"
-          size="mini"
-        >
-          删除选中
-        </el-button>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[1, 2, 3, 4]"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="totalNum()"
-        >
-        </el-pagination>
-      </div>
+    </div>
+    <div class="footer">
+      <el-button @click="removeData" type="danger" size="small"
+        >删除选中</el-button
+      >
+      <el-pagination
+        layout="total, prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-size="5"
+        :current-page="currentPage"
+        :total="50"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
+import tableJsonData from "./employee.json";
+
 export default {
   data() {
     return {
+      topForm: {},
       formLabelWidth: "70px",
       tableDataAmount: [],
       editData: [],
-      select:"",
+      statusText: ["离职", "在职"],
+      statusList: [0, 1],
       form: {
         name: "",
         num: "",
@@ -322,123 +375,41 @@ export default {
         tel: "",
         address: "",
         email: "",
-        status: "",
+        status: null,
       },
-      tableData: [
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "离职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "离职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "离职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "离职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "2",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "离职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "3",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "在职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "4",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "离职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "5",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "在职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-        {
-          name: "王小虎",
-          num: "6",
-          title: "职工",
-          department: "项目管理",
-          tel: "17866234",
-          email: "wangxiaohu@gmail.com",
-          status: "离职",
-          address: "上海市普陀区金沙江路 1518 弄",
-          time: "2020-10-23",
-        },
-      ],
+      tableData: [],
       dialogFormVisible: false,
       informationEditVisible: false,
       currentPage: 1,
     };
   },
-  mounted() {},
+  mounted() {
+    this.tableData = tableJsonData.slice(0, 5);
+  },
   methods: {
+    confirmEdit(){
+      if(this.editData.status === this.statusText[0]){
+        this.editData.status = this.statusList[0]
+      }else if(this.editData.status === this.statusText[1]){
+        this.editData.status = this.statusList[1]
+      }
+      this.tableData[this.editData.index] = this.editData
+      this.informationEditVisible = false
+    },
+    formatStatus(value) {
+      return this.statusText[value];
+    },
     onSubmit() {
       window.alert("搜索");
     },
     handleEdit(index, row) {
       this.informationEditVisible = true;
-
-      this.editData = row;
+      console.log(row);
+      this.editData = { ...row };
+      // this.editData = row
+      console.log(this.editData);
+      this.editData["index"] = index;
+      this.editData.status ? this.statusText[1] : this.statusText[0];
     },
     removeRow(index, row) {
       this.tableData.splice(index, 1);
@@ -447,15 +418,15 @@ export default {
       this.tableDataAmount = data;
     },
     toggleType(status) {
-      if (status === "在职") {
+      if (status === 1) {
         return "primary";
       } else {
         return "info";
       }
     },
     toggleStyle(status) {
-      if (status === "在职") {
-        return "cusor:default";
+      if (status === 1) {
+        return "cursor:default";
       } else {
         return true;
       }
@@ -478,55 +449,35 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.el-form {
-  border: 1px solid #d7d7d7;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  .el-form-item {
-    margin-top: 20px;
-    margin-right: 50px;
+.topForm {
+  .el-input {
+    width: 180px;
   }
-  .add {
-    .el-form {
-      border: none;
-      box-shadow: none;
-      .el-form-item {
-        margin: 0 20px 20px 0;
-      }
-    }
-    .dialog-footer {
-      text-align: center;
-    }
-    .el-button {
-      margin: 0 15px 0 15px;
-    }
+  .el-select {
+    width: 180px;
   }
 }
 .table {
-  margin-top: 10px;
-  border: 1px solid #d7d7d7;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  .el-table {
-    .el-form-item {
-      &:nth-child(n) {
-        margin-left: 40px;
-      }
-    }
-    .table-dialog-footer {
-      text-align: center;
-      .el-button {
-        margin: 0 15px 0 15px;
-      }
-    }
+  margin-top: 20px;
+  .statusOn {
+    width: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffffff;
+    border-radius: 4px;
+    background: #409eff;
   }
-  .block {
-    background: #eef1f6;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    .el-button {
-      margin-bottom: 6px;
-      margin-left: 2px;
-    }
+  .statusOff {
+    width: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffffff;
+    border-radius: 4px;
+    background: #909399;
   }
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
