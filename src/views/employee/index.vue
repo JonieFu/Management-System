@@ -1,25 +1,41 @@
 <template>
   <div class="app-container">
-    <el-form class="topForm" :model="form" :inline="true" size="small">
-      <el-form-item label="员工姓名">
-        <el-input v-model="form.name" placeholder="请输入员工姓名"></el-input>
-      </el-form-item>
-      <el-form-item label="员工账号">
-        <el-input v-model="form.num" placeholder="请输入员工账号"></el-input>
-      </el-form-item>
-      <el-form-item label="员工岗位">
-        <el-select v-model="form.title" placeholder="请选择岗位">
-          <el-option label="前端工程师" value="1"></el-option>
-          <el-option label="软件工程师" value="2"></el-option>
-          <el-option label="架构师" value="3"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="所属部门">
-        <el-select v-model="form.department" placeholder="请选择所属部门 ">
-          <el-option label="项目管理部" value="1"></el-option>
-          <el-option label="人力资源部" value="2"></el-option>
-        </el-select>
-      </el-form-item>
+    <el-form class="topForm" :model="form" size="small">
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="员工姓名">
+            <el-input
+              v-model="form.name"
+              placeholder="请输入员工姓名"
+            ></el-input
+          ></el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="员工账号">
+            <el-input
+              v-model="form.num"
+              placeholder="请输入员工账号"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="员工岗位">
+            <el-select v-model="form.title" placeholder="请选择岗位">
+              <el-option label="前端工程师" value="1"></el-option>
+              <el-option label="软件工程师" value="2"></el-option>
+              <el-option label="架构师" value="3"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="所属部门">
+            <el-select v-model="form.department" placeholder="请选择所属部门 ">
+              <el-option label="项目管理部" value="1"></el-option>
+              <el-option label="人力资源部" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
     <el-row>
       <el-col :span="4" :md="2">
@@ -117,7 +133,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="15">
             <el-form-item label="工作邮箱">
               <el-input
                 v-model="form.email"
@@ -128,7 +144,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="16">
+          <el-col :span="20">
             <el-form-item label="家庭住址">
               <el-input
                 v-model="form.address"
@@ -291,7 +307,7 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="12">
+                  <el-col :span="15">
                     <el-form-item label="工作邮箱">
                       <el-input
                         v-model="editData.email"
@@ -302,7 +318,7 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="16">
+                  <el-col :span="20">
                     <el-form-item label="家庭住址">
                       <el-input
                         v-model="editData.address"
@@ -316,7 +332,7 @@
               <el-row>
                 <el-col :span="2" :offset="16">
                   <el-button
-                    @click="informationEditVisible = false"
+                    @click="informationEditVisible=false"
                     size="small"
                     >取消</el-button
                   >
@@ -387,14 +403,21 @@ export default {
     this.tableData = tableJsonData.slice(0, 5);
   },
   methods: {
-    confirmEdit(){
-      if(this.editData.status === this.statusText[0]){
-        this.editData.status = this.statusList[0]
-      }else if(this.editData.status === this.statusText[1]){
-        this.editData.status = this.statusList[1]
+    messageNotification(val){
+      this.$message({
+        message:val,
+        type:"success"
+      })
+    },
+    confirmEdit() {
+      if (this.editData.status === this.statusText[0]) {
+        this.editData.status = this.statusList[0];
+      } else if (this.editData.status === this.statusText[1]) {
+        this.editData.status = this.statusList[1];
       }
-      this.tableData[this.editData.index] = this.editData
-      this.informationEditVisible = false
+      this.tableData[this.editData.index] = this.editData;
+      this.informationEditVisible = false;
+      this.messageNotification("编辑成功")
     },
     formatStatus(value) {
       return this.statusText[value];
@@ -404,15 +427,13 @@ export default {
     },
     handleEdit(index, row) {
       this.informationEditVisible = true;
-      console.log(row);
       this.editData = { ...row };
-      // this.editData = row
-      console.log(this.editData);
       this.editData["index"] = index;
       this.editData.status ? this.statusText[1] : this.statusText[0];
     },
     removeRow(index, row) {
       this.tableData.splice(index, 1);
+      this.messageNotification("删除成功")
     },
     handleSelectionChange(data) {
       this.tableDataAmount = data;

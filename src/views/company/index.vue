@@ -1,139 +1,76 @@
 <template>
   <div class="app-container">
     <el-form class="topForm" :model="form" :inline="true" size="small">
-      <el-form-item label="员工姓名">
-        <el-input v-model="form.name" placeholder="请输入员工姓名"></el-input>
-      </el-form-item>
-      <el-form-item label="员工账号">
-        <el-input v-model="form.num" placeholder="请输入员工账号"></el-input>
-      </el-form-item>
-      <el-form-item label="员工岗位">
-        <el-select v-model="form.title" placeholder="请选择岗位">
-          <el-option label="前端工程师" value="1"></el-option>
-          <el-option label="软件工程师" value="2"></el-option>
-          <el-option label="架构师" value="3"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="所属部门">
-        <el-select v-model="form.department" placeholder="请选择所属部门 ">
-          <el-option label="项目管理部" value="1"></el-option>
-          <el-option label="人力资源部" value="2"></el-option>
-        </el-select>
-      </el-form-item>
-    </el-form>
-    <el-row>
-      <el-col :span="4" :md="2">
-        <el-button
-          type="primary"
-          size="small"
-          @click="onSubmit"
-          icon="el-icon-search"
-          >搜索</el-button
-        >
-      </el-col>
-      <el-col :span="4" :md="2">
-        <el-button
-          type="primary"
-          size="small"
-          @click="dialogFormVisible = true"
-          icon="el-icon-circle-plus"
-          >添加</el-button
-        >
-      </el-col>
-      <el-col :span="4" :md="2">
-        <el-upload action="D:/" style="display: inline-block">
-          <el-button type="primary" size="small" icon="el-icon-upload2"
-            >上传文件</el-button
+      <el-row>
+        <el-col :span="8" :lg="6">
+          <el-form-item label="公司名称">
+            <el-input v-model="form.name" placeholder="公司名称"></el-input
+          ></el-form-item>
+        </el-col>
+        <el-col :span="8" :lg="6">
+          <el-form-item label="公司编号">
+            <el-input
+              v-model="form.num"
+              placeholder="请输入公司编号"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2" :lg="2">
+          <el-button
+            type="primary"
+            size="small"
+            @click="onSubmit"
+            icon="el-icon-search"
+            >搜索</el-button
           >
-        </el-upload>
-      </el-col>
-    </el-row>
+        </el-col>
+        <el-col :span="2" :lg="2">
+          <el-button
+            type="primary"
+            size="small"
+            @click="dialogFormVisible = true"
+            icon="el-icon-circle-plus"
+            >添加</el-button
+          >
+        </el-col>
+      </el-row>
+    </el-form>
     <el-dialog
-      title="添加新员工"
+      title="添加公司信息"
       :visible.sync="dialogFormVisible"
       center
       width="500px"
     >
       <el-form :model="form" label-width="80px" size="small">
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="员工姓名">
+          <el-col >
+            <el-form-item label="公司名称">
               <el-input
                 v-model="form.name"
                 autocomplete="off"
-                placeholder="请输入员工姓名"
+                placeholder="请输入公司名称"
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="员工岗位">
-              <el-select v-model="form.title" placeholder="请选择岗位">
-                <el-option label="前端工程师" value="1"></el-option>
-                <el-option label="软件工程师" value="2"></el-option>
-                <el-option label="架构师" value="3"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
+          </el-row>
+        <el-row> 
+            <el-col >
+              <el-form-item label="公司编号">
+                <el-input
+                  v-model="form.num"
+                  autocomplete="off"
+                  placeholder="请输入公司编号"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="员工账号">
-              <el-input
-                v-model="form.num"
-                autocomplete="off"
-                placeholder="请输入员工账号"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="所属部门">
-              <el-select
-                v-model="form.department"
-                placeholder="请选择所属部门 "
-              >
-                <el-option label="项目管理部" value="1"></el-option>
-                <el-option label="人力资源部" value="2"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="员工状态">
-              <el-select v-model="form.status" placeholder="请选择员工状态 ">
-                <el-option label="离职" value="0"></el-option>
-                <el-option label="在职" value="1"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="手机号码">
-              <el-input
-                v-model="form.tel"
-                autocomplete="off"
-                placeholder="请输入手机号"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="工作邮箱">
-              <el-input
-                v-model="form.email"
-                autocomplete="off"
-                placeholder="请输入工作邮箱"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="16">
-            <el-form-item label="家庭住址">
+          <el-col >
+            <el-form-item label="公司住址">
               <el-input
                 v-model="form.address"
                 autocomplete="off"
-                placeholder="请输入家庭住址"
+                placeholder="请输入公司住址"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -149,7 +86,7 @@
           <el-button
             type="primary"
             size="small"
-            @click="dialogFormVisible = false"
+            @click=" messageNotification('添加成功') "
             >确 定</el-button
           >
         </el-col>
@@ -387,14 +324,20 @@ export default {
     this.tableData = tableJsonData.slice(0, 5);
   },
   methods: {
-    confirmEdit(){
-      if(this.editData.status === this.statusText[0]){
-        this.editData.status = this.statusList[0]
-      }else if(this.editData.status === this.statusText[1]){
-        this.editData.status = this.statusList[1]
+    messageNotification(val){
+      this.$message({
+        message:val,
+        type:"success"
+      })
+    },
+    confirmEdit() {
+      if (this.editData.status === this.statusText[0]) {
+        this.editData.status = this.statusList[0];
+      } else if (this.editData.status === this.statusText[1]) {
+        this.editData.status = this.statusList[1];
       }
-      this.tableData[this.editData.index] = this.editData
-      this.informationEditVisible = false
+      this.tableData[this.editData.index] = this.editData;
+      this.informationEditVisible = false;
     },
     formatStatus(value) {
       return this.statusText[value];
