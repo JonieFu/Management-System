@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">MES系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -40,13 +40,15 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
+      <el-row type="flex" justify="end">
+        <el-col :span="5"><el-button type="primary" size="small" @click="registerDialogVisible='true'">注册</el-button></el-col>
+        <el-col :span="4"><el-button :loading="loading" type="primary" @click.native.prevent="handleLogin" size="small">登录</el-button></el-col>
+      </el-row>
+      <el-dialog title="注册" center :visible.sync = "registerDialogVisible">
+        
+      </el-dialog>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
+     
 
     </el-form>
   </div>
@@ -74,7 +76,7 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        username: 'Beifang',
         password: '111111'
       },
       loginRules: {
@@ -83,7 +85,8 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      registerDialogVisible:false
     }
   },
   watch: {
@@ -95,6 +98,7 @@ export default {
     }
   },
   methods: {
+    
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -145,7 +149,6 @@ $cursor: #fff;
     display: inline-block;
     height: 47px;
     width: 85%;
-
     input {
       background: transparent;
       border: 0px;
@@ -192,18 +195,6 @@ $light_gray:#eee;
     overflow: hidden;
   }
 
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
-  }
-
   .svg-container {
     padding: 6px 5px 6px 15px;
     color: $dark_gray;
@@ -211,12 +202,14 @@ $light_gray:#eee;
     width: 30px;
     display: inline-block;
   }
-
+  .el-button{
+    font-size: 20px;
+  }
   .title-container {
     position: relative;
 
     .title {
-      font-size: 26px;
+      font-size: 40px;
       color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
