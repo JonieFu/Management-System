@@ -2,12 +2,12 @@
   <div class="app-container">
     <el-form class="topForm" :model="form" :inline="true" size="small">
       <el-row>
-        <el-col :span="8" :lg="6">
+        <el-col :span="8" :lg="7">
           <el-form-item label="公司名称">
             <el-input v-model="form.name" placeholder="公司名称"></el-input
           ></el-form-item>
         </el-col>
-        <el-col :span="8" :lg="6">
+        <el-col :span="8" :lg="7">
           <el-form-item label="公司编号">
             <el-input
               v-model="form.num"
