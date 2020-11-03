@@ -290,6 +290,7 @@ export default {
     handleSelectionChange(data) {
       this.constant.tableDataAmount = data;
     },
+
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },

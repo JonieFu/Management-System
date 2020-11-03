@@ -44,18 +44,18 @@ export const constantRoutes = [
         component: () => import("@/views/employee/index"),
         meta: { title: "员工管理", icon: "el-icon-s-check" }
       },
-      {
-        path: "company",
-        name: "Company",
-        component: () => import("@/views/company/index"),
-        meta: { title: "公司管理", icon: "el-icon-s-home" }
-      },
+      
       {
         path:"department",
         name:"Department",
         component:()=>import("@/views/department/index"),
         meta: { title: "部门管理", icon: "tree" }
-      }
+      },{
+        path: "company",
+        name: "Company",
+        component: () => import("@/views/company/index"),
+        meta: { title: "公司管理", icon: "el-icon-s-home" }
+      },
     ]
   },
   // 404 page must be placed at the end !!!

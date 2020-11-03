@@ -68,7 +68,7 @@
           <el-col>
             <el-form-item label="联系电话">
               <el-input
-                v-model="form.address"
+                v-model="form.tel"
                 autocomplete="off"
                 placeholder="请输入联系电话"
               ></el-input>
@@ -126,9 +126,9 @@
           prop="num"
           label="公司编号"
         ></el-table-column>
-        <el-table-column align="center" prop="time" label="录入时间">
+         <el-table-column align="center" prop="tel" label="联系电话">
         </el-table-column>
-        <el-table-column align="center" prop="tel" label="联系电话">
+        <el-table-column align="center" prop="time" label="录入时间">
         </el-table-column>
         <el-table-column align="center" prop="address" label="公司地址">
         </el-table-column>
