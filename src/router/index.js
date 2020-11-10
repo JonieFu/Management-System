@@ -42,20 +42,26 @@ export const constantRoutes = [
         path: "employee",
         name: "Employee",
         component: () => import("@/views/employee/index"),
-        meta: { title: "员工管理", icon: "el-icon-s-check" }
+        meta: { title: "员工管理"}
       },
       
       {
         path:"department",
         name:"Department",
         component:()=>import("@/views/department/index"),
-        meta: { title: "部门管理", icon: "tree" }
+        meta: { title: "部门管理" }
       },{
         path: "company",
         name: "Company",
         component: () => import("@/views/company/index"),
-        meta: { title: "公司管理", icon: "el-icon-s-home" }
+        meta: { title: "公司管理" }
       },
+      {
+        path:"role",
+        name:"Role",
+        component:()=>import("@/views/role/index"),
+        meta:{title:"角色分配"}
+      }
     ]
   },
   // 404 page must be placed at the end !!!
