@@ -60,13 +60,13 @@
         <el-button
           type="primary"
           size="small"
-          @click="informationEditVisible = 'true'"
+          @click="informationEditVisible = true"
           >编辑</el-button
         >
       </el-table-column>
     </el-table>
     <el-dialog title="角色分配" center :visible.sync="informationEditVisible" >
-      <el-form v-model="tableList" size="small" label-width="80px">
+      <el-form v-model="tableList" size="mini" label-width="80px">
         <el-row>
           <el-col :span="14">
             <el-form-item label="角色名称">
@@ -74,20 +74,55 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-form-item label="分配权限">
-            <el-checkbox label="全选"></el-checkbox>
+        <el-form-item label="分配权限">
+          <el-row>
+            <el-col>
+              <el-checkbox  :indeterminate="dialogData.isIndeterminate" label="全选" v-model="dialogData.checkAll" @change="handleCheckAllChange"></el-checkbox>
+            </el-col>
+          </el-row>
+          <el-divider ></el-divider> 
+          <el-row>
+              <el-col :span="8">
+                <span><el-switch v-model="dialogData.value" @change="changeSwitch"></el-switch>系统信息</span>
+              </el-col >
+              <el-col :span="14">
+                <el-checkbox-group v-model="dialogData.checkedSystemMessage" @change="handleCheckedCitiesChange">
+              <el-checkbox  v-for="system in dialogData.systemMessage" :label="system" :key="system">{{system}}</el-checkbox>
+            </el-checkbox-group>
+              </el-col>
+          </el-row>
+          <el-divider ></el-divider> 
+          <el-row>
+            <el-col :span="8">
+              <span><el-switch v-model="dialogData.value" @change="changeSwitch"></el-switch>商品管理</span>
+            </el-col>
+             <el-col :span="14">
+                <el-checkbox-group v-model="dialogData.chectedProductInformation" @change="handleCheckedCitiesChange">
+              <el-checkbox  v-for="system in dialogData.productInformation" :label="system" :key="system">{{system}}</el-checkbox>
+            </el-checkbox-group>
+              </el-col>
+          </el-row>
           </el-form-item>
-        </el-row>
+        
       </el-form>
     </el-dialog>
   </div>
 </template>
 <script>
 import tableData from "./role.json";
+
 export default {
   data() {
     return {
+      dialogData:{
+        isIndeterminate:true,
+        systemMessage:["系统首页","个人信息"],
+        productInformation:["商品列表","添加商品","商品分类"],
+        checkedSystemMessage:[],
+        chectedProductInformation:[],
+        checkAll:false,
+        value:false,
+        },
       informationEditVisible: false,
       searchName: {
         input: "",
@@ -95,11 +130,26 @@ export default {
       tableList: [],
     };
   },
-  mounted() {
+  mounted() { 
     this.tableList = tableData;
-    console.log(this.tableList);
+    let list = this.tableList
+    this.tableList.forEach((item,index)=>{this.tableList[index].power = item.power.join("/")});
   },
   methods: {
+    changeSwitch(){
+      this.dialogData.checkedSystemMessage = this.dialogData.value? this.dialogData.systemMessage:[]
+    },
+    handleCheckAllChange(val){
+      this.dialogData.checkedSystemMessage = val?this.dialogData.systemMessage:[];
+      this.dialogData.isIndeterminate = false;
+    },
+    handleCheckedCitiesChange(value){
+       let checkedCount = value.length;
+       console.log(checkedCount);
+      this.dialogData.checkAll = (checkedCount === this.dialogData.systemMessage.length);
+       console.log(this.dialogData.checkAll);
+       this.dialogData.isIndeterminate = checkedCount > 0 && checkedCount < this.dialogData.systemMessage.length;
+    },
     handleSelectionChange(data) {
       this.tableDataAmount = data;
     },
@@ -107,4 +157,33 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.el-divider--horizontal{
+     margin: 8px 0;
+ } 
+ .el-dialog{
+   .el-row{
+     span{
+       .el-switch{
+         margin-right: 10px;
+         margin-bottom: 3px;
+       }
+     }
+   }
+ }
+::v-deep .el-switch__core{
+    width:35px!important;
+    height:15px;
+    color:red;
+  }
+::v-deep .el-switch__core::after{
+     width:13px;
+     height:13px;
+     margin-top:-1px;
+     margin-right: -13px;
+     margin-bottom: 2px;
+   }
+::v-deep .el-switch.is-checked .el-switch__core::after{
+  margin-left: -13px;
+}
+
 </style>
