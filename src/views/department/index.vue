@@ -222,22 +222,16 @@
       <el-button @click="removeData" type="danger" size="small"
         >删除选中</el-button
       >
-      <el-pagination
-        layout="total, prev, pager, next, jumper"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :page-size="5"
-        :current-page="constant.currentPage"
-        :total="50"
-      >
-      </el-pagination>
+      <Page/>
     </div>
   </div>
 </template>
 
 <script>
 import tableJsonData from "./department.json";
+import Page from "@/components/page/index.vue";
 export default {
+  components:{Page},
   data() {
     return {
       constant: {

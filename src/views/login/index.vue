@@ -183,7 +183,7 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg: #e1f3d8;
+$bg: #d9ecff;
 $dark_gray: #889aa4;
 $light_gray: #fff;
 

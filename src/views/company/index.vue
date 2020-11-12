@@ -20,6 +20,7 @@
             type="primary"
             size="small"
             @click="onSubmit"
+            
             icon="el-icon-search"
             >搜索</el-button
           >
@@ -221,23 +222,17 @@
       <el-button @click="removeData" type="danger" size="small"
         >删除选中</el-button
       >
-      <el-pagination
-        layout="total, prev, pager, next, jumper"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :page-size="5"
-        :current-page="constant.currentPage"
-        :total="50"
-      >
-      </el-pagination>
+      <Page/>
     </div>
   </div>
 </template>
 
 <script>
 import tableJsonData from "./company.json";
-
+import Page from "@/components/page/index.vue";
+import GetCompanyName from "@/api/company"
 export default {
+  components:{Page},
   data() {
     return {
       constant: {
@@ -273,6 +268,8 @@ export default {
       this.messageNotification("编辑成功");
     },
     onSubmit() {
+      let a = GetCompanyName("adfhas");
+      console.log(a);
       window.alert("搜索");
     },
     handleEdit(index, row) {
