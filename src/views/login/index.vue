@@ -49,13 +49,7 @@
         </span>
       </el-form-item>
       <el-button :loading="loading" type="primary"  @click="handleLogin">登录</el-button>
-      <!-- <el-button
-        :loading="loading"
-        type="primary"
-        @click.native.prevent="handleLogin"
-        size="small"
-        >登录</el-button
-      > -->
+      
     </el-form>
   </div>
 </template>
@@ -189,9 +183,9 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg: #2d3a4b;
+$bg: #e1f3d8;
 $dark_gray: #889aa4;
-$light_gray: #eee;
+$light_gray: #fff;
 
 .login-container {
   min-height: 100%;
