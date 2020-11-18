@@ -35,7 +35,7 @@ export const constantRoutes = [
     path: "/permissions",
     component: Layout,
     redirect: "/permissions/employee",
-    name: "Permissions ",
+    name: "Permissions",
     meta: { title: "权限管理", icon: "el-icon-s-help" },
     children: [
       {
@@ -61,6 +61,22 @@ export const constantRoutes = [
         name:"Role",
         component:()=>import("@/views/role/index"),
         meta:{title:"角色分配"}
+      }
+    ]
+  },
+
+  {
+    path:"/contract-management",
+    component:Layout,
+    redirect:"/contract-management/contract",
+    name:"Contract-management",
+    meta: { title: "合同管理", icon: "el-icon-s-management" },
+    children:[
+      {
+        path:"contract",
+        name:"Contract",
+        component:()=> import("@/views/contract/contract/index"),
+        meta:{title:"合同管理"}
       }
     ]
   },
