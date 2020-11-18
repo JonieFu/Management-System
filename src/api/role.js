@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getCompanyName() {
+export function getRoleName() {
   return request({
-    url: '/vue-admin-template/company/list',
+    url: '/vue-admin-template/role/list',
     method: 'get',
    })
 }

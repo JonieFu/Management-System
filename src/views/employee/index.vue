@@ -364,8 +364,8 @@
 </template>
 
 <script>
-import tableJsonData from "./employee.json";
 import Page from "@/components/page/index.vue";
+import {getEmployeeData} from "@/api/employee"
 export default {
   components:{Page},
   data() {
@@ -393,7 +393,10 @@ export default {
     };
   },
   mounted() {
-    this.tableData = tableJsonData.slice(0, 5);
+    getEmployeeData().
+      then(response => {
+        this.tableData = response.data;
+      }) 
   },
   methods: {
     messageNotification(val){

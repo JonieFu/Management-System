@@ -228,8 +228,8 @@
 </template>
 
 <script>
-import tableJsonData from "./department.json";
 import Page from "@/components/page/index.vue";
+import {getDepartmentData} from "@/api/department"
 export default {
   components:{Page},
   data() {
@@ -252,7 +252,11 @@ export default {
     };
   },
   mounted() {
-    this.constant.tableData = tableJsonData.slice(0, 5);
+     getDepartmentData().
+       then(response => {
+        console.log(response.data);
+        this.constant.tableData = response.data
+       })
   },
   methods: {
     messageNotification(val) {

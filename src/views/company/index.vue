@@ -20,7 +20,6 @@
             type="primary"
             size="small"
             @click="onSubmit"
-            
             icon="el-icon-search"
             >搜索</el-button
           >
@@ -228,9 +227,8 @@
 </template>
 
 <script>
-import tableJsonData from "./company.json";
 import Page from "@/components/page/index.vue";
-import GetCompanyName from "@/api/company"
+import {getCompanyName} from "@/api/company";
 export default {
   components:{Page},
   data() {
@@ -253,7 +251,10 @@ export default {
     };
   },
   mounted() {
-    this.constant.tableData = tableJsonData.slice(0, 5);
+    getCompanyName().
+       then(response => {
+        this.constant.tableData = response.data
+       })
   },
   methods: {
     messageNotification(val) {
@@ -268,9 +269,9 @@ export default {
       this.messageNotification("编辑成功");
     },
     onSubmit() {
-      let a = GetCompanyName("adfhas");
-      console.log(a);
       window.alert("搜索");
+      
+      
     },
     handleEdit(index, row) {
       console.log(row);

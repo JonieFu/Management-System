@@ -140,9 +140,8 @@
   </div>
 </template>
 <script>
-import tableData from "./role.json";
 import Page from "@/components/page/index.vue";
-
+import {getRoleName} from "@/api/role"
 export default {
   components: { Page },
   data() {
@@ -166,7 +165,10 @@ export default {
     };
   },
   mounted() {
-    this.tableList = tableData;
+    getRoleName().then(response =>{
+      this.tableList = response.data;
+    })
+    
     let list = this.tableList;
     this.tableList.forEach((item, index) => {
       this.tableList[index].power = item.power.join("/");
