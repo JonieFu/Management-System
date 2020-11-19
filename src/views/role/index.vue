@@ -167,12 +167,10 @@ export default {
   mounted() {
     getRoleName().then(response =>{
       this.tableList = response.data;
-    })
-    
-    let list = this.tableList;
-    this.tableList.forEach((item, index) => {
-      this.tableList[index].power = item.power.join("/");
+      this.tableList.forEach((item, index) => {
+      this.tableList[index].power = item.power.join(" / ");
     });
+    })
   },
   methods: {
     changeSwitch(){

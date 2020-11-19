@@ -7,6 +7,7 @@ const company = require('./company')
 const department = require('./department')
 const employee = require('./employee')
 const role = require("./role")
+const contract = require("./contract/contract")
 
 const mocks = [
   ...user,
@@ -14,7 +15,8 @@ const mocks = [
   ...company,
   ...department,
   ...employee,
-  ...role
+  ...role,
+  ...contract
 ]
 
 // for front mock
