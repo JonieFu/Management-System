@@ -29,6 +29,20 @@
         :label="tableLabelData[n - 1]"
         :key="n - 1"
       ></el-table-column>
+      <el-table-column align="center" label="操作" class="handle">
+        <template scope="{$index,row}">
+          <el-row >
+          <el-col><el-button size="mini" type='primary' @click="review($index,row)">审核</el-button></el-col>
+        </el-row>
+        <el-row>
+          <el-col ><el-button size="mini" type='primary'>编辑</el-button></el-col>
+        </el-row>
+        <el-row>
+          <el-col ><el-button size="mini" type='danger'>删除</el-button></el-col>
+        </el-row> 
+        </template>
+      
+      </el-table-column>
     </el-table>
     <div class="footer">
       <el-button @click="removeData" type="danger" size="small"
@@ -37,11 +51,16 @@
       <Page/>
     </div>
     </div>
+    <dialog :title="title" @informationVisible = "toggle">
+      
+    </dialog>
   </div>
+  
 </template>
 <script>
 import Page from "@/components/page/index.vue";
 import { getContractData } from "@/api/contract/contract";
+import dialog from "@/views/contract/addContract/dialog.vue"
 export default {
   components:{Page},
   data() {
@@ -68,6 +87,9 @@ export default {
         "BIDDING_COUNT",
       ],
       tableData: [],
+      tableDataAmount:[],
+      contractVisible:"false",
+      title:"审核合同"
     };
   },
   mounted() {
@@ -76,8 +98,20 @@ export default {
     });
   },
   methods: {
-    handleSelectionChange() {
-      this.tableData = data;
+    toggle(){
+      this.contractVisible? "flase":"ture"
+    },
+    review(data,row){
+      console.log(data,row);
+      this.toggle()
+    },
+    removeData(){
+      this.tableData = this.tableData.filter(item =>{
+        return this.tableDataAmount.indexOf(item) === -1
+      })
+    },
+    handleSelectionChange(data) {
+      this.tableDataAmount = data;
     },
   },
 };
@@ -85,6 +119,11 @@ export default {
 <style lang="scss" scoped>
 .table{
   margin-top: 20px;
+}
+.handle{
+  .el-button{
+    margin-bottom: 20px;
+  }
 }
 .footer {
   display: flex;
