@@ -2,9 +2,9 @@
   <div class="app-container">
     <el-form :inline="true" size="small">
       <el-row>
-        <el-col :span="6" v-for="n in 4" :key="n">
-          <el-form-item :label="lableList[n - 1]" :key="lableList[n - 1]">
-            <el-input :placeholder="'请输入' + lableList[n - 1]"></el-input>
+        <el-col :span="6" v-for="(item, index) in lableList" :key="index">
+          <el-form-item :label="item">
+            <el-input :placeholder="'请输入' + item"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -12,57 +12,68 @@
     </el-form>
     <div class="table">
       <el-table
-      :data="tableData"
-      @selection-change="handleSelectionChange"
-      :header-cell-style="{ background: '#eef1f6', color: '#606266' }"
-    >
-      <el-table-column align="center" type="selection"></el-table-column>
-      <el-table-column
-        align="center"
-        label="序号"
-        type="index"
-      ></el-table-column>
-      <el-table-column
-        align="center"
-        v-for="n in 8"
-        :prop="tableProp[n-1]"
-        :label="tableLabelData[n - 1]"
-        :key="n - 1"
-      ></el-table-column>
-      <el-table-column align="center" label="操作" class="handle">
-        <template scope="{$index,row}">
-          <el-row >
-          <el-col><el-button size="mini" type='primary' @click="review($index,row)">审核</el-button></el-col>
-        </el-row>
-        <el-row>
-          <el-col ><el-button size="mini" type='primary'>编辑</el-button></el-col>
-        </el-row>
-        <el-row>
-          <el-col ><el-button size="mini" type='danger'>删除</el-button></el-col>
-        </el-row> 
-        </template>
-      
-      </el-table-column>
-    </el-table>
-    <div class="footer">
-      <el-button @click="removeData" type="danger" size="small"
-        >删除选中</el-button
+        :data="tableData"
+        @selection-change="handleSelectionChange"
+        :header-cell-style="{ background: '#eef1f6', color: '#606266' }"
       >
-      <Page/>
+        <el-table-column align="center" type="selection"></el-table-column>
+        <el-table-column
+          align="center"
+          label="序号"
+          type="index"
+        ></el-table-column>
+        <el-table-column
+          align="center"
+          v-for="n in 8"
+          :prop="tableProp[n - 1]"
+          :label="tableLabelData[n - 1]"
+          :key="n - 1"
+        ></el-table-column>
+        <el-table-column align="center" label="操作" class="handle">
+          <template scope="{$index,row}">
+            <el-row>
+              <el-col
+                ><el-button
+                  size="mini"
+                  type="primary"
+                  @click="review($index, row)"
+                  >审核</el-button
+                ></el-col
+              >
+            </el-row>
+            <el-row>
+              <el-col
+                ><el-button size="mini" type="primary">编辑</el-button></el-col
+              >
+            </el-row>
+            <el-row>
+              <el-col
+                ><el-button size="mini" type="danger">删除</el-button></el-col
+              >
+            </el-row>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="footer">
+        <el-button @click="removeData" type="danger" size="small"
+          >删除选中</el-button
+        >
+        <Page />
+      </div>
     </div>
-    </div>
-    <dialog :title="title" @informationVisible = "toggle">
-      
-    </dialog>
+    <!-- <Dialog :title="title" :infomationVisible="visible" @update:infomationVisible="visible=$event"></Dialog> -->
+    <Dialog :title="title" :infomationVisible.sync="visible" >
+      <!-- <el-button type="primary">确定</el-button> -->
+    </Dialog>
   </div>
-  
 </template>
 <script>
 import Page from "@/components/page/index.vue";
 import { getContractData } from "@/api/contract/contract";
-import dialog from "@/views/contract/addContract/dialog.vue"
+import Dialog from "@/views/contract/contract/dialog.vue";
+
 export default {
-  components:{Page},
+  components: { Page,Dialog},
   data() {
     return {
       lableList: ["商务合同编号", "合同编号", "合同名称", "中标批次"],
@@ -87,9 +98,10 @@ export default {
         "BIDDING_COUNT",
       ],
       tableData: [],
-      tableDataAmount:[],
-      contractVisible:"false",
-      title:"审核合同"
+      tableDataAmount: [],
+      contractVisible: "false",
+      title: "审核合同",
+      visible: false,
     };
   },
   mounted() {
@@ -98,17 +110,21 @@ export default {
     });
   },
   methods: {
-    toggle(){
-      this.contractVisible? "flase":"ture"
+    toggle() {
+      // todo
+      this.contractVisible ? "flase" : "ture";
     },
-    review(data,row){
-      console.log(data,row);
-      this.toggle()
+    review(data, row) {
+      console.log(this.visible);
+      // this.toggle();
+
+      this.visible = true;
+      console.log(this.visible);
     },
-    removeData(){
-      this.tableData = this.tableData.filter(item =>{
-        return this.tableDataAmount.indexOf(item) === -1
-      })
+    removeData() {
+      this.tableData = this.tableData.filter((item) => {
+        return this.tableDataAmount.indexOf(item) === -1;
+      });
     },
     handleSelectionChange(data) {
       this.tableDataAmount = data;
@@ -117,11 +133,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.table{
+.table {
   margin-top: 20px;
 }
-.handle{
-  .el-button{
+.handle {
+  .el-button {
     margin-bottom: 20px;
   }
 }
