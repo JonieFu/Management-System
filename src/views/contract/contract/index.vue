@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <el-form :inline="true" size="small">
+    <el-form :inline="true" size="small" :model="searchInput">
       <el-row>
-        <el-col :span="6" v-for="(item, index) in lableList" :key="index">
-          <el-form-item :label="item">
-            <el-input :placeholder="'请输入' + item"></el-input>
+        <el-col :span="6" v-for="(value,key,index) in searchInput"  :key="index">
+          <el-form-item :label="lableList[index]">
+            <el-input :placeholder="'请输入' + lableList[index]" v-model="searchInput[key]"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -61,22 +61,26 @@
         <Page />
       </div>
     </div>
-    <!-- <Dialog :title="title" :infomationVisible="visible" @update:infomationVisible="visible=$event"></Dialog> -->
-    <Dialog :title="title" :infomationVisible.sync="visible" >
-      <!-- <el-button type="primary">确定</el-button> -->
+    <Dialog :title="title" :infomationVisible.sync="visible" :reviewMessage="reviewMessage">
     </Dialog>
   </div>
 </template>
 <script>
 import Page from "@/components/page/index.vue";
 import { getContractData } from "@/api/contract/contract";
-import Dialog from "@/views/contract/contract/dialog.vue";
+import Dialog from "@/components/dialog/index.vue";
 
 export default {
   components: { Page,Dialog},
   data() {
     return {
       lableList: ["商务合同编号", "合同编号", "合同名称", "中标批次"],
+      searchInput:{
+        bussiness_contract_code:"",
+        contract_code:"",
+        contract_name:"",
+        bidding_batch:"",
+      },
       tableLabelData: [
         "商务合同编号",
         "合同编号",
@@ -102,6 +106,7 @@ export default {
       contractVisible: "false",
       title: "审核合同",
       visible: false,
+      reviewMessage:[]
     };
   },
   mounted() {
@@ -115,11 +120,10 @@ export default {
       this.contractVisible ? "flase" : "ture";
     },
     review(data, row) {
-      console.log(this.visible);
-      // this.toggle();
+      console.log(row)     
 
       this.visible = true;
-      console.log(this.visible);
+     
     },
     removeData() {
       this.tableData = this.tableData.filter((item) => {
