@@ -31,7 +31,7 @@
         ></el-table-column>
         <el-table-column
           align="center"
-          v-for="n in 8"
+          v-for="n in 9"
           :prop="tableProp[n - 1]"
           :label="tableLabelData[n - 1]"
           :key="n - 1"
@@ -39,13 +39,13 @@
         <el-table-column align="center" label="操作" class="handle">
           <template scope="{$index,row}">
             <el-row>
-              <el-col
+              <el-col>
+                <router-link
+                  :to="{name:'Review',params: { data: reviewMessage,contractIndex:$index}}"
+                 
                 >
-                <el-button type="priamary">
-                  <router-link
-                  :to="{path:'/contract-management/review',params:{key:this.title}}"
-                  >审核</router-link>
-                </el-button>
+                  <el-button type="priamary" size="small"  @click="review($index,row)"> 审核</el-button>
+                </router-link>
               </el-col>
             </el-row>
             <el-row>
@@ -73,23 +73,7 @@
         <Page />
       </div>
     </div>
-    <Dialog
-      :title="'审核合同'"
-      :infomationVisible.sync="visible"
-      :reviewMessage="reviewMessage"
-      :formName="tableLabelData"
-      :edit="true"
-    >
-    <el-row type="flex" justify="center" :gutter="20">
-      <el-col :span="4">
-        <el-button type="info" size="small">未通过</el-button>
-      </el-col>
-      <el-col :span="4">
-        <el-button type="primary" size="small">通过</el-button>
-      </el-col>
-    </el-row>
-    
-    </Dialog>
+   
     <Dialog
       :title="'编辑合同'"
       :infomationVisible.sync="editVisible"
@@ -102,7 +86,6 @@
 import Page from "@/components/page/index.vue";
 import { getContractData } from "@/api/contract/contract";
 import Dialog from "@/components/dialog/index.vue";
-import {Bus} from "@/assets/Bus.js"
 
 export default {
   components: { Page, Dialog },
@@ -124,6 +107,7 @@ export default {
         "中标时间",
         "合同签订结束日期",
         "中标数量",
+        "状态"
       ],
       tableProp: [
         "BUSINESS_CONTRACT_CODE",
@@ -134,18 +118,21 @@ export default {
         "BIDDING_TIME",
         "END_TIME",
         "BIDDING_COUNT",
+        "STATE"
       ],
       tableData: [],
       tableDataAmount: [],
       visible: false,
       editVisible: false,
       reviewMessage: {},
-      title:""
     };
   },
   mounted() {
     getContractData().then((response) => {
       this.tableData = response.data;
+      
+      console.log(this.tableData.STATE,this.$route.params.num);
+      this.tableData[this.$route.params.num].STATE = this.$route.params.STATE;
     });
   },
   methods: {
@@ -156,13 +143,9 @@ export default {
       });
     },
     review(index, row) {
-      this.title = "fuyu"
-      // this.visible = true;
-      this.tableProp.forEach((item) => {
-        this.reviewMessage[item] = row[item];
-      });
-      console.log(this.reviewMessage)
-      Bus.$emit("xx",this.title)
+     this.reviewMessage = this.tableData[index]
+     console.log(this.reviewMessage);
+      
     },
     removeData() {
       this.tableData = this.tableData.filter((item) => {

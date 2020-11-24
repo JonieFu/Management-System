@@ -77,11 +77,11 @@ export const constantRoutes = [
         name:"Contract",
         component:()=> import("@/views/contract/index"),
         meta:{title:"合同管理"},
-      },{
+      },
+      {
         path:"review",
         name:"Review",
         component:()=>import("@/views/contract/addContract"),
-        
       },
      
     ]
