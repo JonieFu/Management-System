@@ -75,9 +75,15 @@ export const constantRoutes = [
       {
         path:"contract",
         name:"Contract",
-        component:()=> import("@/views/contract/contract/index"),
-        meta:{title:"合同管理"}
-      }
+        component:()=> import("@/views/contract/index"),
+        meta:{title:"合同管理"},
+      },{
+        path:"review",
+        name:"Review",
+        component:()=>import("@/views/contract/addContract"),
+        
+      },
+     
     ]
   },
   // 404 page must be placed at the end !!!
