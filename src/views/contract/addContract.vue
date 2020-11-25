@@ -11,20 +11,64 @@
         margin: 10px;
       "
     >
-      合同审核
+      添加合同
     </div>
     <div class="form">
-      <el-form :inline="true" :model="reviewMessage" label-width="130px">
-        <el-form-item v-for="(value,key,index) in reviewMessage" :label="contractMessage[key]+':'" :key="index">
-          <el-input :placeholder="value" :disabled='true'></el-input></el-form-item
-      ></el-form>
+      <el-form :inline="true" :model="addMessage" label-width="130px">
+        <el-form-item
+          v-for="(value, key, index) in addMessage"
+          :label="contractMessage[key] + ':'"
+          :key="index"
+        >
+          <el-input
+            v-if="index<6"
+            v-model="addMessage[key]"
+            autocomplete="off"
+            :placeholder="'请输入' + contractMessage[key]"
+            style="width:222.5px"
+          ></el-input>
+          <el-date-picker v-else-if = "index===6" type="date" placeholder="选择日期" v-model="addMessage[key]" value-format="yyyy-MM-dd" style="width:100%;margin-left:5px"></el-date-picker>
+          <el-date-picker v-else-if = "index===7" type="date" placeholder="选择日期" v-model="addMessage[key]" value-format="yyyy-MM-dd" style="width:100%;margin-left:5px"></el-date-picker>
+          <el-input
+            v-else-if="index>7&&index<13"
+            v-model="addMessage[key]"
+            autocomplete="off"
+            :placeholder="'请输入' + contractMessage[key]"
+            style="width:222.5px"
+          ></el-input>
+          <el-select v-else v-model="addMessage[key]" placeholder="请选择状态">
+            <el-option label="待审核" value="待审核"></el-option>
+            <el-option label="通过" value="通过"></el-option>
+            <el-option label="未通过" value="未通过"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
     </div>
-  <el-row>
-    <el-col :span="2"><router-link :to="{name:'Contract',params:{STATE:'通过',num:contractIndex}}"><el-button type="primary" size="small" >通过</el-button></router-link></el-col>
-    <el-col :span="2"><router-link :to="{name:'Contract',params:{STATE:'未通过',num:contractIndex}}"><el-button type="info" size="small" >未通过</el-button></router-link></el-col>
-    <el-col :span="2"><router-link :to="{name:'Contract',params:{STATE:'待审核',num:contractIndex}}"><el-button type="primary" size="small" >返回</el-button></router-link></el-col>
-  </el-row>
-
+    <el-row>
+      <el-col :span="1"
+        ><router-link
+          :to="{
+            name: 'Contract',
+            params: { addData: addMessage},
+          }"
+          ><el-button type="primary" size="small">保存</el-button></router-link
+        ></el-col
+      >
+      <el-col :span="1"
+        ><router-link
+          :to="{
+            name: 'Contract',
+            
+          }"
+          ><el-button type="primary" size="small">返回</el-button></router-link
+        ></el-col
+      >
+      <el-col :span="1"
+        ><el-upload action="D:/" style="display: inline-block">
+          <el-button type="primary" size="small">上传附件</el-button>
+        </el-upload></el-col
+      >
+    </el-row>
   </div>
 </template>
 <script>
@@ -32,28 +76,43 @@ export default {
   data() {
     return {
       contractMessage: {
-        "CONTRACT_NAME":"合同名称",
-        "BUSINESS_CONTRACT_CODE":"商务合同编号",
-        "CONTRACT_CODE":"合同编号",
-        "BIDDING_POSITION":"招标单位",
-        "BIDDING_PARTY_A":"合同甲方单位",
-        "BIDDING_BATCH":"中标批次",
-        "BIDDING_TIME":"中标时间",
-        "END_TIME":"合同签订结束日期",
-        "BIDDING_COUNT":"中标数量",
-        "SOFTWARE_VERSION":"研究方案软件版本",
-        "HARDWARE_VERSION":"研究方案硬件版本",
-        "PRODUCT_DETAIL_CODE":"产品详细信息编号",
-        "INTERNAL_CONTROL_CODE":"中标内控订单编号",
-        "STATE":"状态"
+        CONTRACT_NAME: "合同名称",
+        BUSINESS_CONTRACT_CODE: "商务合同编号",
+        CONTRACT_CODE: "合同编号",
+        BIDDING_POSITION: "招标单位",
+        BIDDING_PARTY_A: "合同甲方单位",
+        BIDDING_BATCH: "中标批次",
+        BIDDING_TIME: "中标时间",
+        END_TIME: "合同签订结束日期",
+        BIDDING_COUNT: "中标数量",
+        SOFTWARE_VERSION: "研究方案软件版本",
+        HARDWARE_VERSION: "研究方案硬件版本",
+        PRODUCT_DETAIL_CODE: "产品详细信息编号",
+        INTERNAL_CONTROL_CODE: "中标内控订单编号",
+        STATE: "状态",
       },
-      reviewMessage:{},
-      contractIndex:NaN
+      addMessage: {
+        CONTRACT_NAME: "",
+        BUSINESS_CONTRACT_CODE: "",
+        CONTRACT_CODE: "",
+        BIDDING_POSITION: "",
+        BIDDING_PARTY_A: "",
+        BIDDING_BATCH: "",
+        BIDDING_TIME: "",
+        END_TIME: "",
+        BIDDING_COUNT: "",
+        SOFTWARE_VERSION: "",
+        HARDWARE_VERSION: "",
+        PRODUCT_DETAIL_CODE: "",
+        INTERNAL_CONTROL_CODE: "",
+        STATE: "",
+      },
     };
   },
-  mounted() {
-    this.contractIndex = this.$route.params.contractIndex
-    this.reviewMessage = this.$route.params.data
+  methods: {
+    download() {
+      console.log("下载合同");
+    },
   },
 };
 </script>
@@ -69,7 +128,7 @@ export default {
   width: 90vw;
   margin-top: 10px;
 }
-.el-row{
-  margin-left:10px
+.el-row {
+  margin-left: 10px;
 }
 </style>

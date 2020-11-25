@@ -16,6 +16,7 @@
         </el-col>
       </el-row>
       <el-button type="primary" size="small">搜索</el-button>
+      <el-button type="primary" size="small"><router-link :to="{name:'Add'}">新增</router-link></el-button>
     </el-form>
     <div class="table">
       <el-table
@@ -41,26 +42,42 @@
             <el-row>
               <el-col>
                 <router-link
-                  :to="{name:'Review',params: { data: reviewMessage,contractIndex:$index}}"
-                 
+                  :to="{
+                    name: 'Review',
+                    params: { data: reviewMessage, contractIndex: $index },
+                  }"
                 >
-                  <el-button type="priamary" size="small"  @click="review($index,row)"> 审核</el-button>
+                  <el-button
+                    type="priamary"
+                    size="mini"
+                    @click="review($index, row)"
+                  >
+                    审核</el-button
+                  >
                 </router-link>
               </el-col>
             </el-row>
             <el-row>
               <el-col
-                ><el-button
+                >
+                <router-link 
+                :to="{
+                  name: 'Edit',
+                  params: { data: reviewMessage, contractIndex: $index },
+                }">
+                <el-button
                   size="mini"
                   type="primary"
                   @click="edit($index, row)"
                   >编辑</el-button
-                ></el-col
+                >
+                </router-link>
+                </el-col
               >
             </el-row>
             <el-row>
               <el-col
-                ><el-button size="mini" type="danger">删除</el-button></el-col
+                ><el-button size="mini" type="danger" @click="removeRow($index,row)">删除</el-button></el-col
               >
             </el-row>
           </template>
@@ -73,22 +90,14 @@
         <Page />
       </div>
     </div>
-   
-    <Dialog
-      :title="'编辑合同'"
-      :infomationVisible.sync="editVisible"
-      :reviewMessage="reviewMessage"
-      :formName="tableLabelData"
-    ></Dialog>
   </div>
 </template>
 <script>
 import Page from "@/components/page/index.vue";
 import { getContractData } from "@/api/contract/contract";
-import Dialog from "@/components/dialog/index.vue";
 
 export default {
-  components: { Page, Dialog },
+  components: { Page },
   data() {
     return {
       lableList: ["商务合同编号", "合同编号", "合同名称", "中标批次"],
@@ -107,7 +116,7 @@ export default {
         "中标时间",
         "合同签订结束日期",
         "中标数量",
-        "状态"
+        "状态",
       ],
       tableProp: [
         "BUSINESS_CONTRACT_CODE",
@@ -118,7 +127,7 @@ export default {
         "BIDDING_TIME",
         "END_TIME",
         "BIDDING_COUNT",
-        "STATE"
+        "STATE",
       ],
       tableData: [],
       tableDataAmount: [],
@@ -130,22 +139,31 @@ export default {
   mounted() {
     getContractData().then((response) => {
       this.tableData = response.data;
-      
-      console.log(this.tableData.STATE,this.$route.params.num);
-      this.tableData[this.$route.params.num].STATE = this.$route.params.STATE;
+      if (this.$route.params.num >= 0) {
+        this.tableData[this.$route.params.num] = this.$route.params.data;
+      }
+      else if(this.$route.params.addData){
+        console.log(this.$route.params.addData.END_TIME)
+        this.tableData.push(this.$route.params.addData)
+      }
     });
   },
   methods: {
+    messageNotification(val){
+      this.$message({
+        message:val,
+        type:"success"
+      })
+    },
+    removeRow(index, row) {
+      this.tableData.splice(index, 1);
+      this.messageNotification("删除成功")
+    },
     edit(index, row) {
-      this.editVisible = true;
-      this.tableProp.forEach((item) => {
-        this.reviewMessage[item] = row[item];
-      });
+     this.reviewMessage = this.tableData[index];
     },
     review(index, row) {
-     this.reviewMessage = this.tableData[index]
-     console.log(this.reviewMessage);
-      
+      this.reviewMessage = this.tableData[index];
     },
     removeData() {
       this.tableData = this.tableData.filter((item) => {
@@ -167,12 +185,6 @@ export default {
     margin-bottom: 20px;
   }
 }
-::v-deep review-dialog {
-  border: 1px solid red;
-  display: flex;
-  justify-content: space-between;
-}
-
 .footer {
   display: flex;
   justify-content: space-between;

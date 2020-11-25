@@ -81,8 +81,18 @@ export const constantRoutes = [
       {
         path:"review",
         name:"Review",
-        component:()=>import("@/views/contract/addContract"),
+        component:()=>import("@/views/contract/reviewContract"),
       },
+      {
+        path:"edit",
+        name:"Edit",
+        component:()=>import("@/views/contract/editContract")
+      },
+      {
+        path:"add",
+        name:"Add",
+        component:()=>import("@/views/contract/addContract")
+      }
      
     ]
   },
