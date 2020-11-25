@@ -21,7 +21,7 @@
     </div>
   <el-row>
     <el-col :span="1"><router-link :to="{name:'Contract',params:{data:reviewMessage,num:contractIndex}}"><el-button type="primary" size="small" >保存</el-button></router-link></el-col>
-    <el-col :span="1"><router-link :to="{name:'Contract',params:{data:reviewMessage,num:contractIndex}}"><el-button type="primary" size="small" >返回</el-button></router-link></el-col>
+    <el-col :span="1"><router-link :to="{name:'Contract'}"><el-button type="primary" size="small" >返回</el-button></router-link></el-col>
     <el-col :span="1"><el-upload action="D:/" style="display: inline-block">
           <el-button type="primary" size="small" 
             >上传附件</el-button
