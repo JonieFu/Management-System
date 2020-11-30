@@ -30,7 +30,6 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: "/permissions",
     component: Layout,
@@ -41,30 +40,34 @@ export const constantRoutes = [
       {
         path: "employee",
         name: "Employee",
-        component: () => import("@/views/employee/index"),
+        component: () => import("@/views/authority-management/employee.vue"),
         meta: { title: "员工管理"}
       },
-      
       {
         path:"department",
         name:"Department",
-        component:()=>import("@/views/department/index"),
+        component:()=>import("@/views/authority-management/department.vue"),
         meta: { title: "部门管理" }
       },{
         path: "company",
         name: "Company",
-        component: () => import("@/views/company/index"),
+        component: () => import("@/views/authority-management/company.vue"),
         meta: { title: "公司管理" }
       },
       {
         path:"role",
         name:"Role",
-        component:()=>import("@/views/role/index"),
+        component:()=>import("@/views/authority-management/role.vue"),
         meta:{title:"角色分配"}
+      },
+      {
+        path:"menu",
+        name:"Menu",
+        component:() => import("@/views/authority-management/menu.vue"),
+        meta:{title:"菜单管理"}
       }
     ]
   },
-
   {
     path:"/contract-management",
     component:Layout,

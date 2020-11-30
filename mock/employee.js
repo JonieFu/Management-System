@@ -1,6 +1,6 @@
 const Mock = require('mockjs')
 const data = Mock.mock({
-  "data":[
+  "data": [
     {
       "name": "王小虎",
       "num": "4",
@@ -10,7 +10,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 0,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小虎",
@@ -21,7 +32,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 1,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小猫",
@@ -32,7 +54,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 0,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小猫",
@@ -43,7 +76,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 1,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小猫",
@@ -54,7 +98,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 0,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小猫",
@@ -65,7 +120,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 1,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小猪",
@@ -76,8 +142,19 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 0,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },{
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
+    }, {
       "name": "王小猪",
       "num": "3",
       "title": "职工",
@@ -86,7 +163,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 1,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小猪",
@@ -97,7 +185,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 0,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     },
     {
       "name": "王小猪",
@@ -108,149 +207,18 @@ const data = Mock.mock({
       "email": "wangxiaohu@gmail.com",
       "status": 1,
       "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "王小牛",
-      "num": "6",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 0,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "王小牛",
-      "num": "3",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 1,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "王小牛",
-      "num": "4",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 0,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "王小牛",
-      "num": "5",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 1,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "王小牛",
-      "num": "6",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 0,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "王小牛",
-      "num": "3",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 1,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "王小牛",
-      "num": "4",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 0,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "JOJO",
-      "num": "5",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 1,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "JOJO",
-      "num": "6",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 0,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },{
-      "name": "JOJO",
-      "num": "3",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 1,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "JOJO",
-      "num": "4",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 0,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "哈哈",
-      "num": "5",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 1,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
-    },
-    {
-      "name": "哈哈",
-      "num": "6",
-      "title": "职工",
-      "department": "项目管理",
-      "tel": "17866234",
-      "email": "wangxiaohu@gmail.com",
-      "status": 0,
-      "address": "上海市普陀区金沙江路 1518 弄",
-      "time": "2020-10-23"
+      "time": "2020-10-23",
+      "childList": [{
+        "name": "王小虎",
+        "num": "4",
+        "title": "职工",
+        "department": "项目管理",
+        "tel": "17866234",
+        "email": "wangxiaohu@gmail.com",
+        "status": 0,
+        "address": "上海市普陀区金沙江路 1518 弄",
+        "time": "2020-10-23",
+      }]
     }
   ]
 })
