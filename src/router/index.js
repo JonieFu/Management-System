@@ -16,7 +16,6 @@ export const constantRoutes = [
     component: () => import("@/views/404"),
     hidden: true
   },
-
   {
     path: "/",
     component: Layout,
@@ -112,6 +111,21 @@ export const constantRoutes = [
         component: () => import("@/views/technology/BOM.vue"),
         meta: { title: "BOM清单" }
       },
+    ]
+  },
+  {
+    path: "/purchase",
+    component: Layout,
+    redirect: "/purchase/purchase_storage",
+    name: "purchase",
+    meta: { title: "采购管理", icon: "el-icon-s-help" },
+    children: [
+      {
+        path: "purchase_storage",
+        name: "Purchase_storage",
+        component: () => import("@/views/purchase/purchase_storage.vue"),
+        meta: { title: "采购入库" }
+      }
     ]
   },
   // 404 page must be placed at the end !!!
