@@ -219,7 +219,7 @@
         </el-table-column>
         <el-table-column align="center" prop="address" label="住址">
         </el-table-column>
-        <el-table-column class="operating" label="操作" align="center">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
               type="primary"
@@ -332,7 +332,7 @@
               <el-row>
                 <el-col :span="2" :offset="16">
                   <el-button
-                    @click="informationEditVisible=false"
+                    @click="informationEditVisible = false"
                     size="small"
                     >取消</el-button
                   >
@@ -358,16 +358,16 @@
       <el-button @click="removeData" type="danger" size="small"
         >删除选中</el-button
       >
-      <Page/>
+      <Page />
     </div>
   </div>
 </template>
 
 <script>
 import Page from "@/components/page/index.vue";
-import {getEmployeeData} from "@/api/employee"
+import { getEmployeeData } from "@/api/employee";
 export default {
-  components:{Page},
+  components: { Page },
   data() {
     return {
       topForm: {},
@@ -393,17 +393,16 @@ export default {
     };
   },
   mounted() {
-    getEmployeeData().
-      then(response => {
-        this.tableData = response.data;
-      }) 
+    getEmployeeData().then((response) => {
+      this.tableData = response.data;
+    });
   },
   methods: {
-    messageNotification(val){
+    messageNotification(val) {
       this.$message({
-        message:val,
-        type:"success"
-      })
+        message: val,
+        type: "success",
+      });
     },
     confirmEdit() {
       if (this.editData.status === this.statusText[0]) {
@@ -413,7 +412,7 @@ export default {
       }
       this.tableData[this.editData.index] = this.editData;
       this.informationEditVisible = false;
-      this.messageNotification("编辑成功")
+      this.messageNotification("编辑成功");
     },
     formatStatus(value) {
       return this.statusText[value];
@@ -429,7 +428,7 @@ export default {
     },
     removeRow(index, row) {
       this.tableData.splice(index, 1);
-      this.messageNotification("删除成功")
+      this.messageNotification("删除成功");
     },
     handleSelectionChange(data) {
       this.tableDataAmount = data;

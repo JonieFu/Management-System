@@ -41,62 +41,77 @@ export const constantRoutes = [
         path: "employee",
         name: "Employee",
         component: () => import("@/views/authority-management/employee.vue"),
-        meta: { title: "员工管理"}
+        meta: { title: "员工管理" }
       },
       {
-        path:"department",
-        name:"Department",
-        component:()=>import("@/views/authority-management/department.vue"),
+        path: "department",
+        name: "Department",
+        component: () => import("@/views/authority-management/department.vue"),
         meta: { title: "部门管理" }
-      },{
+      }, {
         path: "company",
         name: "Company",
         component: () => import("@/views/authority-management/company.vue"),
         meta: { title: "公司管理" }
       },
       {
-        path:"role",
-        name:"Role",
-        component:()=>import("@/views/authority-management/role.vue"),
-        meta:{title:"角色分配"}
+        path: "role",
+        name: "Role",
+        component: () => import("@/views/authority-management/role.vue"),
+        meta: { title: "角色分配" }
       },
       {
-        path:"menu",
-        name:"Menu",
-        component:() => import("@/views/authority-management/menu.vue"),
-        meta:{title:"菜单管理"}
+        path: "menu",
+        name: "Menu",
+        component: () => import("@/views/authority-management/menu.vue"),
+        meta: { title: "菜单管理" }
       }
     ]
   },
   {
-    path:"/contract-management",
-    component:Layout,
-    redirect:"/contract-management/contract",
-    name:"Contract-management",
+    path: "/contract-management",
+    component: Layout,
+    redirect: "/contract-management/contract",
+    name: "Contract-management",
     meta: { title: "合同管理", icon: "el-icon-s-management" },
-    children:[
+    children: [
       {
-        path:"contract",
-        name:"Contract",
-        component:()=> import("@/views/contract/index"),
-        meta:{title:"合同管理"},
+        path: "contract",
+        name: "Contract",
+        component: () => import("@/views/contract/index"),
+        meta: { title: "合同管理" },
       },
       {
-        path:"review",
-        name:"Review",
-        component:()=>import("@/views/contract/reviewContract"),
+        path: "review",
+        name: "Review",
+        component: () => import("@/views/contract/reviewContract"),
       },
       {
-        path:"edit",
-        name:"Edit",
-        component:()=>import("@/views/contract/editContract")
+        path: "edit",
+        name: "Edit",
+        component: () => import("@/views/contract/editContract")
       },
       {
-        path:"add",
-        name:"Add",
-        component:()=>import("@/views/contract/addContract")
+        path: "add",
+        name: "Add",
+        component: () => import("@/views/contract/addContract")
       }
-     
+
+    ]
+  },
+  {
+    path: "/technology",
+    name: "Technology",
+    component: Layout,
+    redirect: "/technology/bom",
+    meta: { title: "技术管理", icon: "el-icon-s-help" },
+    children: [
+      {
+        path: "bom",
+        name: "Bom",
+        component: () => import("@/views/technology/BOM.vue"),
+        meta: { title: "BOM清单" }
+      },
     ]
   },
   // 404 page must be placed at the end !!!
