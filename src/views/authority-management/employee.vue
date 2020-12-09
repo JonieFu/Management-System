@@ -422,7 +422,7 @@ export default {
     },
     handleEdit(index, row) {
       this.informationEditVisible = true;
-      this.editData = { ...row };
+      this.editData = row;
       this.editData["index"] = index;
       this.editData.status ? this.statusText[1] : this.statusText[0];
     },

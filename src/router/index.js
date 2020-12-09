@@ -68,6 +68,27 @@ export const constantRoutes = [
     ]
   },
   {
+    path: "/basicdata",
+    component: Layout,
+    name: "Basicdata",
+    redirect: "/basicdata/data_configuration",
+    meta: { title: "基础数据", icon: "el-icon-s-data" },
+    children: [
+      {
+        path: "data_configuration",
+        name: "Data_configuration",
+        component: () => import("@/views/basicdata/data_configuration.vue"),
+        meta: { title: "基础数据配置" },
+      },
+      {
+        path: "data_maintenance",
+        name: "Data_maintenance",
+        component: () => import("@/views/basicdata/data_maintenance.vue"),
+        meta: { title: "基础数据维护" }
+      }
+    ]
+  },
+  {
     path: "/contract-management",
     component: Layout,
     redirect: "/contract-management/contract",
@@ -127,6 +148,10 @@ export const constantRoutes = [
         meta: { title: "采购入库" }
       }
     ]
+  },
+  {
+    path: "/process",
+    name: "process",
   },
   // 404 page must be placed at the end !!!
   { path: "*", redirect: "/404", hidden: true }

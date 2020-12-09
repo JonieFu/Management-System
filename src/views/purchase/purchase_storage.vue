@@ -35,11 +35,11 @@
           ></el-col>
         </el-row>
         <el-row>
-          <el-col :span="7" :lg="2"
+          <el-col :span="7"
             ><el-form-item label="联系电话">
               <el-input></el-input> </el-form-item
           ></el-col>
-          <el-col :span="7" :lg="2"
+          <el-col :span="7"
             ><el-form-item label="运输方式"> <el-input></el-input></el-form-item
           ></el-col>
         </el-row>

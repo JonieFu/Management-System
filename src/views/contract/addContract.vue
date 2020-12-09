@@ -21,20 +21,34 @@
           :key="index"
         >
           <el-input
-            v-if="index<6"
+            v-if="index < 6"
             v-model="addMessage[key]"
             autocomplete="off"
             :placeholder="'请输入' + contractMessage[key]"
-            style="width:222.5px"
+            style="width: 222.5px"
           ></el-input>
-          <el-date-picker v-else-if = "index===6" type="date" placeholder="选择日期" v-model="addMessage[key]" value-format="yyyy-MM-dd" style="width:100%;margin-left:5px"></el-date-picker>
-          <el-date-picker v-else-if = "index===7" type="date" placeholder="选择日期" v-model="addMessage[key]" value-format="yyyy-MM-dd" style="width:100%;margin-left:5px"></el-date-picker>
+          <el-date-picker
+            v-else-if="index === 6"
+            type="date"
+            placeholder="选择日期"
+            v-model="addMessage[key]"
+            value-format="yyyy-MM-dd"
+            style="width: 100%; margin-left: 5px"
+          ></el-date-picker>
+          <el-date-picker
+            v-else-if="index === 7"
+            type="date"
+            placeholder="选择日期"
+            v-model="addMessage[key]"
+            value-format="yyyy-MM-dd"
+            style="width: 100%; margin-left: 5px"
+          ></el-date-picker>
           <el-input
-            v-else-if="index>7&&index<13"
+            v-else-if="index > 7 && index < 13"
             v-model="addMessage[key]"
             autocomplete="off"
             :placeholder="'请输入' + contractMessage[key]"
-            style="width:222.5px"
+            style="width: 222.5px"
           ></el-input>
           <el-select v-else v-model="addMessage[key]" placeholder="请选择状态">
             <el-option label="待审核" value="待审核"></el-option>
@@ -45,25 +59,24 @@
       </el-form>
     </div>
     <el-row>
-      <el-col :span="1"
+      <el-col :span="2"
         ><router-link
           :to="{
             name: 'Contract',
-            params: { addData: addMessage},
+            params: { addData: addMessage },
           }"
           ><el-button type="primary" size="small">保存</el-button></router-link
         ></el-col
       >
-      <el-col :span="1"
+      <el-col :span="2"
         ><router-link
           :to="{
             name: 'Contract',
-            
           }"
           ><el-button type="primary" size="small">返回</el-button></router-link
         ></el-col
       >
-      <el-col :span="1"
+      <el-col :span="2"
         ><el-upload action="D:/" style="display: inline-block">
           <el-button type="primary" size="small">上传附件</el-button>
         </el-upload></el-col
