@@ -63,6 +63,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <Page/>
     <el-dialog
       center
       title="编辑"
@@ -76,7 +77,9 @@
   </div>
 </template>
 <script>
+import Page from "@/components/page/index"
 export default {
+  components:{Page},
   data() {
     return {
       tableList: [
