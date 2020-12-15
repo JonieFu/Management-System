@@ -5,12 +5,13 @@
         @current-change="handleCurrentChange"
         :page-size="5"
         :current-page="1"
-        :total="25"
+        :total="5"
       >
       </el-pagination>
 </template>
 <script>
 export default {
+  
   methods:{
     handleSizeChange(){},
     handleCurrentChange(){}
